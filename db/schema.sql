@@ -12,7 +12,9 @@ CREATE TABLE user
     password VARCHAR(255),
     authtype ENUM('local') DEFAULT 'local',
     email VARCHAR(255),
-PRIMARY KEY (id)
+    created DATETIME,
+    last DATETIME,
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
 CREATE TABLE figures

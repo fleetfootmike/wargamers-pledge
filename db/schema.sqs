@@ -5,12 +5,12 @@
         <schema><![CDATA[]]></schema>
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
-            <x>41.000000</x>
-            <y>240.000000</y>
+            <x>312.000000</x>
+            <y>400.000000</y>
         </location>
         <size>
             <width>222.000000</width>
-            <height>120.000000</height>
+            <height>160.000000</height>
         </size>
         <SQLField>
             <name><![CDATA[id]]></name>
@@ -55,6 +55,18 @@
             <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
             <zorder><![CDATA[1]]></zorder>
         </SQLField>
+        <SQLField>
+            <name><![CDATA[created]]></name>
+            <type><![CDATA[DATETIME]]></type>
+            <uid><![CDATA[9CD79665-57E7-414D-AE0F-2458331A38B1]]></uid>
+            <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[last]]></name>
+            <type><![CDATA[DATETIME]]></type>
+            <uid><![CDATA[0C271F62-1453-417D-920B-ACDD02FFE9A6]]></uid>
+            <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
+        </SQLField>
         <temporaryOriginalName><![CDATA[Table1]]></temporaryOriginalName>
         <table_character_set><![CDATA[utf8]]></table_character_set>
         <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
@@ -66,8 +78,8 @@
         <schema><![CDATA[]]></schema>
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
-            <x>145.000000</x>
-            <y>397.000000</y>
+            <x>36.000000</x>
+            <y>186.000000</y>
         </location>
         <size>
             <width>227.000000</width>
@@ -131,8 +143,8 @@
         <schema><![CDATA[]]></schema>
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
-            <x>311.000000</x>
-            <y>127.000000</y>
+            <x>349.000000</x>
+            <y>125.000000</y>
         </location>
         <size>
             <width>246.000000</width>
@@ -342,7 +354,7 @@ bmc+CjwvZGljdD4KPC9wbGlzdD4KhpKEmZkLTlNQYXBlck5hbWWGkoSZmQZpc28t
 YTSGkoSZmQtOU1BhcGVyU2l6ZYaShJychIQMe19OU1NpemU9ZmZ9ooFTAoFKA4aG
 hg==
 ]]></encodedPrintInfo>
-        <windowLocationY><![CDATA[116.000000]]></windowLocationY>
+        <windowLocationY><![CDATA[97.000000]]></windowLocationY>
         <fileversion><![CDATA[3.1]]></fileversion>
         <exportDialect><![CDATA[mysql]]></exportDialect>
         <uid><![CDATA[BCB29CDD-0DB6-445E-A9B4-39EE4282077B]]></uid>
@@ -350,13 +362,13 @@ hg==
         <autoSizeTablesOption><![CDATA[1]]></autoSizeTablesOption>
         <hideFieldIcons><![CDATA[0]]></hideFieldIcons>
         <PageGridVisible><![CDATA[0]]></PageGridVisible>
-        <SourceSplitViewState><![CDATA[2 454.01 609.99]]></SourceSplitViewState>
+        <SourceSplitViewState><![CDATA[2 509.055 683.945]]></SourceSplitViewState>
         <documentScaleFactor><![CDATA[1]]></documentScaleFactor>
         <snapToGrid><![CDATA[0]]></snapToGrid>
-        <windowWidth><![CDATA[1073.000000]]></windowWidth>
+        <windowWidth><![CDATA[1202.000000]]></windowWidth>
         <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
         <hideFieldTypes><![CDATA[0]]></hideFieldTypes>
-        <windowHeight><![CDATA[746.000000]]></windowHeight>
+        <windowHeight><![CDATA[765.000000]]></windowHeight>
     </SQLDocumentInfo>
     <containerName><![CDATA[model controller orginal container]]></containerName>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
