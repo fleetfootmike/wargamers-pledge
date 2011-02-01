@@ -2,39 +2,39 @@
 
 CREATE TABLE user
 (
-    id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    name VARCHAR(255),
-    email VARCHAR(255),
-    created DATETIME,
-    last DATETIME,
-    PRIMARY KEY (id)
+id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+name VARCHAR(255),
+email VARCHAR(255),
+created DATETIME,
+last DATETIME,
+PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
 CREATE TABLE auth_password
 (
-    user INTEGER,
-    login VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+user INTEGER,
+login VARCHAR(255) NOT NULL UNIQUE,
+password VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
 CREATE TABLE figures
 (
-    id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    status ENUM('bought','painted') NOT NULL,
-    number INTEGER NOT NULL,
-    owner INTEGER NOT NULL,
-    notes TINYTEXT,
-    PRIMARY KEY (id)
+id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+status ENUM('bought','painted') NOT NULL,
+number INTEGER NOT NULL,
+owner INTEGER NOT NULL,
+notes TINYTEXT,
+PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
 CREATE TABLE event
 (
-    id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    status ENUM('bought','painted') NOT NULL,
-    user INTEGER NOT NULL,
-    figures INTEGER NOT NULL,
-    date DATE NOT NULL,
-    PRIMARY KEY (id)
+id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+status ENUM('bought','painted') NOT NULL,
+user INTEGER NOT NULL,
+figures INTEGER NOT NULL,
+date DATE NOT NULL,
+PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
 ALTER TABLE auth_password ADD FOREIGN KEY user_idxfk (user) REFERENCES user (id);
