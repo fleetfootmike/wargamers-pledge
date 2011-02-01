@@ -9,28 +9,19 @@
             <y>384.000000</y>
         </location>
         <size>
-            <width>183.000000</width>
-            <height>120.000000</height>
+            <width>200.000000</width>
+            <height>100.000000</height>
         </size>
         <SQLField>
             <name><![CDATA[id]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <notNull>1</notNull>
-            <autoIncrement>1</autoIncrement>
-            <primaryKey>1</primaryKey>
-            <unique><![CDATA[1]]></unique>
-            <uid><![CDATA[39F3F739-F87D-4B8C-B825-3B7B5CF81AEC]]></uid>
-            <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
-            <forcedUnique><![CDATA[1]]></forcedUnique>
-            <zorder><![CDATA[1]]></zorder>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[name]]></name>
             <type><![CDATA[VARCHAR(255)]]></type>
+            <notNull>1</notNull>
+            <primaryKey>1</primaryKey>
             <unique><![CDATA[0]]></unique>
             <uid><![CDATA[C7E7FA9D-0BF8-4189-92D0-A46B0503BCA0]]></uid>
-            <indexed><![CDATA[0]]></indexed>
+            <indexed><![CDATA[1]]></indexed>
             <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
             <zorder><![CDATA[1]]></zorder>
         </SQLField>
         <SQLField>
@@ -61,36 +52,29 @@
     <SQLTable>
         <name><![CDATA[auth_password]]></name>
         <schema><![CDATA[]]></schema>
+        <tableType><![CDATA[InnoDB]]></tableType>
         <location>
             <x>53.000000</x>
             <y>402.000000</y>
         </location>
         <size>
             <width>222.000000</width>
-            <height>80.000000</height>
+            <height>60.000000</height>
         </size>
         <SQLField>
-            <name><![CDATA[id]]></name>
-            <type><![CDATA[INTEGER]]></type>
+            <name><![CDATA[user]]></name>
+            <type><![CDATA[VARCHAR(255)]]></type>
             <referencesField>id</referencesField>
             <referencesTable>user</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
             <referencesTable><![CDATA[user]]></referencesTable>
             <sourceCardinality>3</sourceCardinality>
             <destinationCardinality>1</destinationCardinality>
-            <referencesFieldUID><![CDATA[39F3F739-F87D-4B8C-B825-3B7B5CF81AEC]]></referencesFieldUID>
+            <referencesFieldUID><![CDATA[C7E7FA9D-0BF8-4189-92D0-A46B0503BCA0]]></referencesFieldUID>
             <referencesTableUID><![CDATA[47EEC02F-B97B-409B-ACB9-32C50E725D71]]></referencesTableUID>
             <uid><![CDATA[11B692E6-815E-4853-A44D-46AD5E952C09]]></uid>
             <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
             <zorder><![CDATA[1]]></zorder>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[login]]></name>
-            <type><![CDATA[VARCHAR(255)]]></type>
-            <notNull>1</notNull>
-            <uid><![CDATA[6FFBEA68-71F7-4A49-9468-903451B948BA]]></uid>
-            <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
-            <unique><![CDATA[1]]></unique>
         </SQLField>
         <SQLField>
             <name><![CDATA[password]]></name>
@@ -101,6 +85,7 @@
             <indexed><![CDATA[1]]></indexed>
         </SQLField>
         <temporaryOriginalName><![CDATA[auth_password]]></temporaryOriginalName>
+        <table_character_set><![CDATA[utf8]]></table_character_set>
         <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
         <uid><![CDATA[AEAEA8D6-5CEF-4BF4-AE79-0EC0E14DFC64]]></uid>
         <zorder><![CDATA[3]]></zorder>
@@ -147,14 +132,6 @@
             <name><![CDATA[owner]]></name>
             <type><![CDATA[INTEGER]]></type>
             <notNull>1</notNull>
-            <referencesField>id</referencesField>
-            <referencesTable>user</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[user]]></referencesTable>
-            <sourceCardinality>3</sourceCardinality>
-            <destinationCardinality>1</destinationCardinality>
-            <referencesFieldUID><![CDATA[39F3F739-F87D-4B8C-B825-3B7B5CF81AEC]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[47EEC02F-B97B-409B-ACB9-32C50E725D71]]></referencesTableUID>
             <uid><![CDATA[296F5BDB-0351-4B24-A28A-2C21A8A63B57]]></uid>
             <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
         </SQLField>
@@ -202,7 +179,7 @@
         </SQLField>
         <SQLField>
             <name><![CDATA[user]]></name>
-            <type><![CDATA[INTEGER]]></type>
+            <type><![CDATA[VARCHAR(255)]]></type>
             <notNull>1</notNull>
             <referencesField>id</referencesField>
             <referencesTable>user</referencesTable>
@@ -210,7 +187,7 @@
             <referencesTable><![CDATA[user]]></referencesTable>
             <sourceCardinality>3</sourceCardinality>
             <destinationCardinality>1</destinationCardinality>
-            <referencesFieldUID><![CDATA[39F3F739-F87D-4B8C-B825-3B7B5CF81AEC]]></referencesFieldUID>
+            <referencesFieldUID><![CDATA[C7E7FA9D-0BF8-4189-92D0-A46B0503BCA0]]></referencesFieldUID>
             <referencesTableUID><![CDATA[47EEC02F-B97B-409B-ACB9-32C50E725D71]]></referencesTableUID>
             <uid><![CDATA[54DA8710-6272-499C-BB8B-803A9941DB65]]></uid>
             <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
@@ -393,6 +370,7 @@ hg==
         <windowLocationX><![CDATA[265.000000]]></windowLocationX>
         <autoSizeTablesOption><![CDATA[1]]></autoSizeTablesOption>
         <hideFieldIcons><![CDATA[0]]></hideFieldIcons>
+        <dropTableOption><![CDATA[0]]></dropTableOption>
         <PageGridVisible><![CDATA[0]]></PageGridVisible>
         <SourceSplitViewState><![CDATA[2 509.055 683.945]]></SourceSplitViewState>
         <documentScaleFactor><![CDATA[1]]></documentScaleFactor>
