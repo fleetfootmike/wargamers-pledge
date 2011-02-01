@@ -1,20 +1,20 @@
-/* user table
+/* SQLEditor (MySQL (2))*/
 
-We'll add other authtypes and extra columns as needed to handle external auth.
-user.id will be used in user-specific URLs.
-
-user.email is optional.
-*/
 CREATE TABLE user
 (
     id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    userid VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255),
-    authtype ENUM('local') DEFAULT 'local',
+    name VARCHAR(255),
     email VARCHAR(255),
     created DATETIME,
     last DATETIME,
     PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET=utf8;
+
+CREATE TABLE auth_password
+(
+    user INTEGER,
+    login VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
 CREATE TABLE figures
@@ -37,10 +37,12 @@ CREATE TABLE event
     PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE INDEX userid_idx ON user(userid);
+ALTER TABLE auth_password ADD FOREIGN KEY user_idxfk (user) REFERENCES user (id);
+
+CREATE INDEX password_idx ON auth_password(password);
 ALTER TABLE figures ADD FOREIGN KEY owner_idxfk (owner) REFERENCES user (id);
 
 CREATE INDEX status_idx ON event(status);
-ALTER TABLE event ADD FOREIGN KEY user_idxfk (user) REFERENCES user (id);
+ALTER TABLE event ADD FOREIGN KEY user_idxfk_1 (user) REFERENCES user (id);
 
 ALTER TABLE event ADD FOREIGN KEY figures_idxfk (figures) REFERENCES figures (id);
