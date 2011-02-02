@@ -1,4 +1,4 @@
-package App::WargamersPledge::Controller::Root;
+package App::WargamersPledge::Controller::Profile;
 use Moose;
 use namespace::autoclean;
 
@@ -6,7 +6,7 @@ BEGIN {extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
-App::WargamersPledge::Controller::Root - Catalyst Controller
+App::WargamersPledge::Controller::Profile - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -24,7 +24,7 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched App::WargamersPledge::Controller::Root in Root.');
+    $c->response->body('Matched App::WargamersPledge::Controller::Profile in Profile.');
 }
 
 
