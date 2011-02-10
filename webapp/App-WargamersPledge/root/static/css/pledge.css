@@ -1,5 +1,5 @@
 body {
-    background: #f3efe0 url(/static/images/bg/fine-writing-paper.jpg);
+    background: #f3efe0 url(/static/images/bg/sm-cr-pap.jpg);
     color: white;
     margin-top: 20px;
     font-family: Helvetica, sans-serif; 
@@ -29,7 +29,7 @@ body {
     width: 780px;
     padding: 70px 5px 5px 5px;
     margin: -60px auto 0 auto;
-    background: #f1f2f4 url(/static/images/bg/plain-white-paper.jpg);
+    background: #f1f2f4 url(/static/images/bg/sm-wi-pap.jpeg);
     color: black;
 }
 
