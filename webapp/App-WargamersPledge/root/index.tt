@@ -19,9 +19,9 @@
   <!--<link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">-->
 
-
   <!-- CSS : implied media="all" -->
-  <!--<link rel="stylesheet" href="css/style.css?v=2">-->
+  <link rel="stylesheet" href="/static/css/reset.css" />
+<link rel="stylesheet" href="/static/css/pledge.css" />
 
   <!-- Uncomment if you are specifically targeting less enabled mobile browsers
   <link rel="stylesheet" media="handheld" href="css/handheld.css?v=2">  -->
@@ -32,27 +32,58 @@
 </head>
 
 <body>
+    <section id="wrapper">
+        <header><span class="curl"></span><span class="curl wide"></span>
+            <h1>Wargamers Pledge</h1>
+        </header>
+        <div id="content">
+            <section id="intro">
+                <header><span class="curl"></span>
+                    <h2>The Pledge</h2>
+                </header>
+                <blockquote class="major">
+                    <p>I will paint or sell miniatures faster then I buy them.</p>
+                </blockquote>
+                <p>To help us keep the pledge, we have built this website to track
+                our buying habits and painting rates. By airing our progress in
+                public we hope to shame ourselves into painting more figures.</p>
+                
+                <p>These things are always easier when you are not alone though,
+                so sign up and track your progress with us.</p>
+            </section>
+            <section class="note">
+                <header>
+                    <h2>Things to do</h2>
+                </header>
+                <ul>
+                    <li> Track buying &amp; painting over time </li>
+                    <li> Share pretty graphs with your friends </li>
+                    <li> Organise your collection </li>
+                    <li> Share photos of your figures </li>
+                </ul>
+            </section>
+            
+            <section>
+                <header><span class="curl"></span>
+                <h2>News</h2>
+                </header>
+                <article>
+                    <header><span class="curl"></span><h3>Foo Bar Baz</h3></header>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec neque nisl, bibendum porttitor risus. Aenean blandit hendrerit interdum. Nam pretium adipiscing tellus vitae mattis. Vivamus posuere, dui quis placerat feugiat, dui est mattis eros, sit amet sollicitudin ipsum dolor non eros. Pellentesque vestibulum eros id leo lobortis ultricies. Ut nisi metus, tristique nec ultricies sit amet, placerat tempor leo. Nunc ipsum sapien, laoreet in fringilla sit amet, iaculis sit amet lacus. Donec posuere nunc non mi hendrerit ut consectetur odio viverra. In quis mauris et ligula convallis auctor. Donec iaculis vulputate blandit. Quisque dignissim dui sed magna porta luctus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut massa nisi, in feugiat nunc. Mauris aliquam imperdiet ipsum nec consequat. Vivamus id mi sit amet quam scelerisque imperdiet. </p>
+                    <header><span class="curl"></span><h3>Foo Bar Baz</h3></header>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec neque nisl, bibendum porttitor risus. Aenean blandit hendrerit interdum. Nam pretium adipiscing tellus vitae mattis. Vivamus posuere, dui quis placerat feugiat, dui est mattis eros, sit amet sollicitudin ipsum dolor non eros. Pellentesque vestibulum eros id leo lobortis ultricies. Ut nisi metus, tristique nec ultricies sit amet, placerat tempor leo. Nunc ipsum sapien, laoreet in fringilla sit amet, iaculis sit amet lacus. Donec posuere nunc non mi hendrerit ut consectetur odio viverra. In quis mauris et ligula convallis auctor. Donec iaculis vulputate blandit. Quisque dignissim dui sed magna porta luctus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut massa nisi, in feugiat nunc. Mauris aliquam imperdiet ipsum nec consequat. Vivamus id mi sit amet quam scelerisque imperdiet. </p>
+                </article>
+            </section>
+        </div>
+    </section>
 
-  <div id="container">
-    <header>
-        <h1>Wargamers Pledge</h1>
-    </header>
-    
-    <div id="main">
-
-    </div>
-    
-    <footer>
-        © 2010 and some details. What license are we going to provide data under? We'll need terms and conditions
-    </footer>
-  </div> <!--! end of #container -->
 
 
   <!-- Javascript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>-->
-  <script src="http://code.jquery.com/jquery-1.5.min.js"></script>
+  <!--<script src="http://code.jquery.com/jquery-1.5.min.js"></script>-->
   <!--<script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.4.2.js"%3E%3C/script%3E'))</script>-->
   
   
