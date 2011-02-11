@@ -111,7 +111,7 @@
             <uid><![CDATA[DA3DD20E-6161-4090-ABDB-6FEAEFC61CA4]]></uid>
             <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
             <unique><![CDATA[1]]></unique>
-            <forcedUnique><![CDATA[0]]></forcedUnique>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
         </SQLField>
         <SQLField>
             <name><![CDATA[num]]></name>
@@ -201,6 +201,14 @@
             <name><![CDATA[purchase]]></name>
             <type><![CDATA[INTEGER]]></type>
             <notNull>1</notNull>
+            <referencesField>id</referencesField>
+            <referencesTable>purchase</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[purchase]]></referencesTable>
+            <sourceCardinality>3</sourceCardinality>
+            <destinationCardinality>1</destinationCardinality>
+            <referencesFieldUID><![CDATA[DA3DD20E-6161-4090-ABDB-6FEAEFC61CA4]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[197BA3B0-6F6D-4018-8FC4-E2B67056AEED]]></referencesTableUID>
             <objectComment><![CDATA[...I want to paint some of these....]]></objectComment>
             <uid><![CDATA[77AC5C92-D640-40F1-A2DC-196267868894]]></uid>
             <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>

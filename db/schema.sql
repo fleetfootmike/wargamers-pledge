@@ -62,6 +62,8 @@ ALTER TABLE purchase ADD FOREIGN KEY user_idxfk_1 (user) REFERENCES user (id);
 
 CREATE INDEX manufacturer_idx ON purchase(manufacturer);
 CREATE INDEX scale_idx ON purchase(scale);
+ALTER TABLE action ADD FOREIGN KEY purchase_idxfk (purchase) REFERENCES purchase (id);
+
 CREATE INDEX use_as_idx ON action(use_as);
 ALTER TABLE action ADD FOREIGN KEY user_idxfk_2 (user) REFERENCES user (id);
 
