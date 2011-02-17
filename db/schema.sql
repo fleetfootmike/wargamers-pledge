@@ -9,6 +9,12 @@ last DATETIME,
 PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
+CREATE TABLE manufacturer
+(
+id VARCHAR(255) UNIQUE,
+PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET=utf8;
+
 CREATE TABLE auth_password
 (
 user VARCHAR(255),
@@ -19,7 +25,7 @@ CREATE TABLE purchase
 (
 id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 num INTEGER NOT NULL,
-user INTEGER NOT NULL,
+user VARCHAR(255) NOT NULL,
 manufacturer VARCHAR(255) COMMENT 'Autocomplete from manufacturer table',
 description VARCHAR(255) COMMENT 'Autocomplete from figure table for given manufacturer',
 scale VARCHAR(15),
@@ -35,14 +41,8 @@ purchase INTEGER NOT NULL COMMENT '...I want to paint some of these....',
 use_as VARCHAR(255) COMMENT '...as Balearic slingers...',
 num INTEGER,
 user VARCHAR(255) NOT NULL,
-when DATE NOT NULL,
+done DATE NOT NULL,
 notes TINYTEXT,
-PRIMARY KEY (id)
-) ENGINE=InnoDB CHARACTER SET=utf8;
-
-CREATE TABLE manufacturer
-(
-id VARCHAR(255) UNIQUE,
 PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
