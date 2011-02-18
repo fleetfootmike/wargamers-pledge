@@ -86,16 +86,16 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 auth_passwords
+=head2 auth_password
 
-Type: has_many
+Type: might_have
 
 Related object: L<App::WargamersPledge::Schema::Result::AuthPassword>
 
 =cut
 
-__PACKAGE__->has_many(
-  "auth_passwords",
+__PACKAGE__->might_have(
+  "auth_password",
   "App::WargamersPledge::Schema::Result::AuthPassword",
   { "foreign.user" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
@@ -117,8 +117,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-17 06:27:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jFzSJ3qsItHrdfy7IGrt/Q
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-18 06:36:12
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Mun5aH/xIzcRbZVj7vuAQw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

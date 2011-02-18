@@ -1,17 +1,72 @@
-package App::WargamersPledge::Model::API;
+use MooseX::Declare
 
-use strict;
-use base 'Catalyst::Model::DBIC::Schema';
+class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
+    use DateTime;
 
-__PACKAGE__->config(
-    schema_class => 'App::WargamersPledge::Schema',
-    
-    connect_info => {
-        dsn => 'dbi:mysql:wgpledge',
-        user => 'root',
-        password => '',
+    __PACKAGE__->config(
+        schema_class => 'App::WargamersPledge::Schema',
+
+        connect_info => {
+            dsn => 'dbi:mysql:wgpledge',
+            user => 'root',
+            password => '',
+        }
+    );
+
+    method get_figure_stash (Str $user, HashRef $search?) {
+        my $rs = $self->resultset("User");
+        
+        my @stash = $rs->search( { id => $user} )->purchases{$search};
+        return map { $_->id => { $_->get_columns} }, @stash;
     }
-);
+    
+    method get_actions ( Str $user, HashRef $search? ) {
+        my $rs = $self->resultset("User");
+
+        my @actions = $rs->search( { id => $user } )->actions($search);
+        return map { $_->id => { $_->get_columns } }, @actions;
+    }
+    
+    method add_to_stash ( Str $user, Str :$description, Int :$number, Str :$manufacturer?, Str :$scale?, Str :$notes?, DateTime :$when? ) {
+        $when //= DateTime->now();
+
+        my $user = $self->resultset("User")->find($user);
+        
+        my $args = { description => $description, purchased => $when, num => $number };
+        $args->{manufacturer} = $manufacturer if defined $manufacturer;
+        $args->{scale} = $scale if defined $scale;
+        $args->{notes} = $notes if defined $notes;
+        
+        $user->add_to_purchases($args);
+    }   
+     
+    method do_action ( Str $purchase, Str :$state='painted', Int :$number, DateTime :$when?, Str :$notes?, Str :$as? ) {
+        $when //= DateTime->now();
+
+        my $purchase = $self->resultset("Purchase")->find( $purchase );
+        
+        my $args = { state => $state, num => $number, done => $when };
+        $args->{notes} = $notes if defined $notes;
+        $args->{use_as} = $as if definzend $as;
+        
+        $purchase->add_to_actions($args);
+    }
+    
+    method get_stats (Str $user) {
+        my $rs = $self->resultset("User");
+        
+        my $bought = $rs->purchases()->get_column('num')->sum();
+        
+        # the simpleminded version
+        my $bought = $rs->actions({ action => 'painted'})->get_column('num')->sum();
+        
+        return { bought => $bought, painted => $painted };
+    }
+    
+    method get_profile (Str $user) { ... }
+}
+
+
 
 =head1 NAME
 

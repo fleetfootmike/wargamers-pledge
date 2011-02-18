@@ -26,8 +26,9 @@ __PACKAGE__->table("auth_password");
 =head2 user
 
   data_type: 'varchar'
+  default_value: (empty string)
   is_foreign_key: 1
-  is_nullable: 1
+  is_nullable: 0
   size: 255
 
 =head2 password
@@ -40,10 +41,17 @@ __PACKAGE__->table("auth_password");
 
 __PACKAGE__->add_columns(
   "user",
-  { data_type => "varchar", is_foreign_key => 1, is_nullable => 1, size => 255 },
+  {
+    data_type => "varchar",
+    default_value => "",
+    is_foreign_key => 1,
+    is_nullable => 0,
+    size => 255,
+  },
   "password",
   { data_type => "varchar", is_nullable => 0, size => 255 },
 );
+__PACKAGE__->set_primary_key("user");
 
 =head1 RELATIONS
 
@@ -59,17 +67,12 @@ __PACKAGE__->belongs_to(
   "user",
   "App::WargamersPledge::Schema::Result::User",
   { id => "user" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
-  },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-17 06:27:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zzG2KCdQ+YY7K91Ag0Ph9Q
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-18 06:36:12
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EgAWs1wzxPG/X+MGWX6l0g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

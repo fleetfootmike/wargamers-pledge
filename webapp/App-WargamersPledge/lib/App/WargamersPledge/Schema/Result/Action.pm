@@ -64,6 +64,12 @@ __PACKAGE__->table("action");
   data_type: 'tinytext'
   is_nullable: 1
 
+=head2 action
+
+  data_type: 'enum'
+  extra: {list => ["painted"]}
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -81,25 +87,12 @@ __PACKAGE__->add_columns(
   { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
   "notes",
   { data_type => "tinytext", is_nullable => 1 },
+  "action",
+  { data_type => "enum", extra => { list => ["painted"] }, is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
-
-=head2 purchase
-
-Type: belongs_to
-
-Related object: L<App::WargamersPledge::Schema::Result::Purchase>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "purchase",
-  "App::WargamersPledge::Schema::Result::Purchase",
-  { id => "purchase" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
 
 =head2 user
 
@@ -116,9 +109,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 purchase
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-17 06:27:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:L7PltRNjIVZgIGnZHhZrLQ
+Type: belongs_to
+
+Related object: L<App::WargamersPledge::Schema::Result::Purchase>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "purchase",
+  "App::WargamersPledge::Schema::Result::Purchase",
+  { id => "purchase" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-18 06:36:12
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wH27lu6/9TrORGKTS1xOxw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
