@@ -8,8 +8,8 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
 
         connect_info => {
             dsn => 'dbi:mysql:wgpledge',
-            user => 'root',
-            password => '',
+            user => 'wgpledge',
+            password => 'wgpledge',
         }
     );
 
