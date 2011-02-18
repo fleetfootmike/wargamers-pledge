@@ -1,4 +1,4 @@
-use MooseX::Declare
+use MooseX::Declare;
 
 class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
     use DateTime;
@@ -16,14 +16,12 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
     method get_figure_stash (Str $user, HashRef $search?) {
         my $rs = $self->resultset("User");
         
-        my @stash = $rs->search( { id => $user} )->purchases{$search};
+        my @stash = $rs->search( { id => $user} )->purchases($search);
         return map { $_->id => { $_->get_columns} }, @stash;
     }
     
     method get_actions ( Str $user, HashRef $search? ) {
-        my $rs = $self->resultset("User");
-
-        my @actions = $rs->search( { id => $user } )->actions($search);
+        my @actions = $self->resultset("User")->find($user)->actions($search);
         return map { $_->id => { $_->get_columns } }, @actions;
     }
     
