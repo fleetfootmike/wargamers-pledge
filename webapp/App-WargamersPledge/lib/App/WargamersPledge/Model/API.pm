@@ -30,26 +30,26 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
         my $rs = $self->resultset("User");
         
         my @stash = $rs->search( { id => $user} )->purchases($search);
-        return map { $_->id => { $_->get_columns} }, @stash;
+        return map { $_->id => { $_->get_columns} } @stash;
     }
 
     method do_action ( Int $purchase, Int :$number, Str :$state?, DateTime :$when?, Str :$notes?, Str :$as? ) {
         $when //= DateTime->now();
         $state //= 'painted';
         
-        my $purchase = $self->resultset("Purchase")->find( $purchase );
+        my $purchase_rs = $self->resultset("Purchase")->find( $purchase );
         
         my $args = { state => $state, num => $number, done => $when };
         $args->{notes} = $notes if defined $notes;
         $args->{use_as} = $as if defined $as;
         
-        $purchase->add_to_actions($args);
+        $purchase_rs->add_to_actions($args);
     }
 
 
     method get_actions (Str $user, HashRef $search?) {
         my @actions = $self->resultset("User")->find($user)->actions($search);
-        return map { $_->id => { $_->get_columns } }, @actions;
+        return map { $_->id => { $_->get_columns } } @actions;
     }
 
     method get_stats (Str $user) {
@@ -58,7 +58,7 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
         my $bought = $rs->purchases()->get_column('num')->sum();
         
         # the simpleminded version
-        my $bought = $rs->actions({ action => 'painted'})->get_column('num')->sum();
+        my $painted = $rs->actions({ action => 'painted'})->get_column('num')->sum();
         
         return { bought => $bought, painted => $painted };
     }
