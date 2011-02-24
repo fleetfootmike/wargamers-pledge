@@ -1,8 +1,8 @@
 use MooseX::Declare;
 
 class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
-    use DateTime;
-
+    use App::WargamersPledge::Model::API::Types ':all';
+    
     __PACKAGE__->config(
         schema_class => 'App::WargamersPledge::Schema',
 
@@ -13,43 +13,45 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
         }
     );
 
-    method get_figure_stash (Str $user, HashRef $search?) {
-        my $rs = $self->resultset("User");
-        
-        my @stash = $rs->search( { id => $user} )->purchases($search);
-        return map { $_->id => { $_->get_columns} }, @stash;
-    }
-    
-    method get_actions ( Str $user, HashRef $search? ) {
-        my @actions = $self->resultset("User")->find($user)->actions($search);
-        return map { $_->id => { $_->get_columns } }, @actions;
-    }
-    
-    method add_to_stash ( Str $user, Str :$description, Int :$number, Str :$manufacturer?, Str :$scale?, Str :$notes?, DateTime :$when? ) {
+    method add_to_stash( Str $user, Str :$description, Int :$number, Str :$manufacturer?, Str :$scale?, Str :$notes?, DateTime :$when? ) {
         $when //= DateTime->now();
 
-        my $user = $self->resultset("User")->find($user);
+        my $u = $self->resultset("User")->find($user);
         
         my $args = { description => $description, purchased => $when, num => $number };
         $args->{manufacturer} = $manufacturer if defined $manufacturer;
         $args->{scale} = $scale if defined $scale;
         $args->{notes} = $notes if defined $notes;
         
-        $user->add_to_purchases($args);
+        $u->add_to_purchases($args);
     }   
-     
-    method do_action ( Str $purchase, Str :$state='painted', Int :$number, DateTime :$when?, Str :$notes?, Str :$as? ) {
-        $when //= DateTime->now();
 
+    method get_figure_stash (Str $user, HashRef :$search?) {
+        my $rs = $self->resultset("User");
+        
+        my @stash = $rs->search( { id => $user} )->purchases($search);
+        return map { $_->id => { $_->get_columns} }, @stash;
+    }
+
+    method do_action ( Int $purchase, Int :$number, Str :$state?, DateTime :$when?, Str :$notes?, Str :$as? ) {
+        $when //= DateTime->now();
+        $state //= 'painted';
+        
         my $purchase = $self->resultset("Purchase")->find( $purchase );
         
         my $args = { state => $state, num => $number, done => $when };
         $args->{notes} = $notes if defined $notes;
-        $args->{use_as} = $as if definzend $as;
+        $args->{use_as} = $as if defined $as;
         
         $purchase->add_to_actions($args);
     }
-    
+
+
+    method get_actions (Str $user, HashRef $search?) {
+        my @actions = $self->resultset("User")->find($user)->actions($search);
+        return map { $_->id => { $_->get_columns } }, @actions;
+    }
+
     method get_stats (Str $user) {
         my $rs = $self->resultset("User");
         
@@ -60,8 +62,8 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
         
         return { bought => $bought, painted => $painted };
     }
-    
-    method get_profile (Str $user) { ... }
+
+    method get_profile (Str $user) { }
 }
 
 
