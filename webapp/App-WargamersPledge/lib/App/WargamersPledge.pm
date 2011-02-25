@@ -20,6 +20,11 @@ use Catalyst qw/
     -Debug
     ConfigLoader
     Static::Simple
+    Authentication
+    Authorization::Roles
+    Session
+    Session::Store::FastMmap
+    Session::State::Cookie
 /;
 
 extends 'Catalyst';
@@ -40,6 +45,29 @@ __PACKAGE__->config(
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
 );
+
+__PACKAGE__->config->{authentication} = {
+    default_realm => 'password',
+    realms        => {
+        password => {
+            credential => {
+                class          => 'Password',
+                password_field => 'password',
+                password_type  => 'self_check'
+            },
+            store => {
+                class         => 'DBIx::Class',
+#                user_model    => 'App::WargamersPledge::Schema::Result::AuthPassword',
+                user_model    => 'API::AuthPassword',
+#                role_relation => 'roles',
+#                role_field    => 'rolename',
+            }
+        }
+    }
+};
+__PACKAGE__->config->{session} = {
+    expires => 3600,
+};
 
 # Start the application
 __PACKAGE__->setup();

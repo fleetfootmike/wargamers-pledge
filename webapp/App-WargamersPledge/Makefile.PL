@@ -17,6 +17,14 @@ requires 'Moose';
 requires 'namespace::autoclean';
 requires 'Config::General'; # This should reflect the config file format you've chosen
                  # See Catalyst::Plugin::ConfigLoader for supported formats
+requires 'Catalyst::Plugin::Session::Store::FastMmap';
+requires 'Catalyst::Plugin::Session::State::Cookie';
+requires 'Devel::Declare';
+requires 'ExtUtils::Depends';
+requires 'TryCatch';
+requires 'MooseX::Declare';
+requires 'Crypt::Eksblowfish::Bcrypt';
+
 test_requires 'Test::More' => '0.88';
 catalyst;
 
