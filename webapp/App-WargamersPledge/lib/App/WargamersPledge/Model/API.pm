@@ -2,6 +2,7 @@ use MooseX::Declare;
 
 class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
     use App::WargamersPledge::Model::API::Types ':all';
+    use Gravatar::URL;
     
     __PACKAGE__->config(
         schema_class => 'App::WargamersPledge::Schema',
@@ -65,7 +66,17 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
 
     method get_profile (Str $user) {
         my ($profile) = $self->resultset("User")->find($user);
-        return $profile;
+        return $profile unless defined $profile;
+        
+        # Figure out what icon to use
+        #   Initially this will be based on the email address.
+        #   We'll add more methods later.
+        my $email = $profile->email;
+        my $gravatar_url = gravatar_url(email => $email);
+        return {
+            avatar_url => $gravatar_url,
+            username   => $user
+        }
     }
 }
 

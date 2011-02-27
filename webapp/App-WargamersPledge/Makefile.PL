@@ -29,6 +29,7 @@ requires 'DBIx::Class::Schema';
 requires 'DBIx::Class::EncodedColumn';
 requires 'Catalyst::Plugin::Authorization::Roles';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
+requires 'Gravatar::URL';
 
 test_requires 'Test::More' => '0.88';
 catalyst;

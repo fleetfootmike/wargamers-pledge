@@ -34,8 +34,7 @@ sub person :Path :Args(1) {
     
     $c->detach('unknown_profile') unless defined $profile;
     
-    $c->response->body('Found a profile for the specified user');
-    
+    $c->stash($profile);
 }
 
 sub unknown_profile :Private {
