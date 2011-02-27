@@ -27,7 +27,8 @@ requires 'MooseX::NonMoose';
 requires 'Crypt::Eksblowfish::Bcrypt';
 requires 'DBIx::Class::Schema';
 requires 'DBIx::Class::EncodedColumn';
-
+requires 'Catalyst::Plugin::Authorization::Roles';
+requires 'Catalyst::Authentication::Store::DBIx::Class';
 
 test_requires 'Test::More' => '0.88';
 catalyst;
