@@ -2,7 +2,7 @@
 
 CREATE TABLE user
 (
-id VARCHAR(255) NOT NULL,
+id VARCHAR(255) NOT NULL UNIQUE,
 email VARCHAR(255),
 created DATETIME,
 last DATETIME,
@@ -17,8 +17,9 @@ PRIMARY KEY (id)
 
 CREATE TABLE auth_password
 (
-user VARCHAR(255),
-password VARCHAR(255) NOT NULL
+user VARCHAR(255) UNIQUE,
+password VARCHAR(255) NOT NULL,
+PRIMARY KEY (user)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
 CREATE TABLE purchase
@@ -43,6 +44,7 @@ num INTEGER,
 user VARCHAR(255) NOT NULL,
 done DATE NOT NULL,
 notes TINYTEXT,
+action ENUM('painted'),
 PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 

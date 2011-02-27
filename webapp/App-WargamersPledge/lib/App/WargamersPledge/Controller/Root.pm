@@ -33,6 +33,26 @@ sub index :Path :Args(0) {
     
 }
 
+sub login :Path('login') {
+    my ( $self, $c ) = @_;
+    my $_POST = $c->request->body_parameters;
+    
+    my $auth = $c->user();
+    
+    if ($_POST->{username}) {
+        $auth = $c->authenticate({
+                          user => $_POST->{username},
+                          password => $_POST->{password}
+                          });
+    }
+    
+    if ($auth) {
+        $c->response->body( 'logged in' );
+    } else {
+        # We show the login form
+    }    
+}
+
 =head2 default
 
 Standard 404 error page
