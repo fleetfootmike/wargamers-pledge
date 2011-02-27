@@ -63,7 +63,10 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
         return { bought => $bought, painted => $painted };
     }
 
-    method get_profile (Str $user) { }
+    method get_profile (Str $user) {
+        my ($profile) = $self->resultset("User")->find($user);
+        return $profile;
+    }
 }
 
 

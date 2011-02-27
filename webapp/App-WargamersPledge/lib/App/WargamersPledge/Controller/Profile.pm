@@ -27,6 +27,21 @@ sub index :Path :Args(0) {
     $c->response->body('Matched App::WargamersPledge::Controller::Profile in Profile.');
 }
 
+sub person :Path :Args(1) {
+    my ( $self, $c, $user ) = @_;
+    
+    my $profile = $c->model('API')->get_profile($user);
+    
+    $c->detach('unknown_profile') unless defined $profile;
+    
+    $c->response->body('Found a profile for the specified user');
+    
+}
+
+sub unknown_profile :Private {
+    my ( $self, $c) = @_;
+    $c->response->status(404);
+}
 
 =head1 AUTHOR
 
