@@ -23,7 +23,11 @@ requires 'Devel::Declare';
 requires 'ExtUtils::Depends';
 requires 'TryCatch';
 requires 'MooseX::Declare';
+requires 'MooseX::NonMoose';
 requires 'Crypt::Eksblowfish::Bcrypt';
+requires 'DBIx::Class::Schema';
+requires 'DBIx::Class::EncodedColumn';
+
 
 test_requires 'Test::More' => '0.88';
 catalyst;
