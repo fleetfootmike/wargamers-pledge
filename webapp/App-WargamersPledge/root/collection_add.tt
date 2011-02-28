@@ -34,12 +34,12 @@
 
             <div class="field">
                <label for="manufacturer">Manufacturer</label>
-               <input name="manufacturer" id="manufacturer"/>
+               <input name="manufacturer" id="manufacturer" value="[% form_data.manufacturer | html %]"/>
             </div>
             
             <div class="field">
                <label for="pack">Pack name</label>
-               <input name="pack" id="pack"/>
+               <input name="pack" id="pack" value="[% form_data.pack | html %]"/>
             </div>            
 
             [% FOREACH model = form_data.models %]
@@ -51,12 +51,12 @@
                 
                 <div class="field">
                    <label for="model_[% model | html %]">Model name</label>
-                   <input name="model_[% model | html %]" id="model_[% model | html %]"/>
+                   <input name="model_[% model | html %]" id="model_[% model | html %]" value="[% field = 'model_' _ model; form_data.$field %]"/>
                 </div>
                 
                 <div class="field">
                    <label for="quantity_[% model | html %]">Quantity in pack</label>
-                   <input type="number" name="quantity_[% model | html %]" id="quantity_[% model | html %]" value="1"/>
+                   <input type="number" name="quantity_[% model | html %]" id="quantity_[% model | html %]" value="[% field = 'quantity_' _ model; form_data.$field %]"/>
                 </div>
                 
             </fieldset>
