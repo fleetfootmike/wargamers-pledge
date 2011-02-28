@@ -81,6 +81,35 @@ sub login :Path('login') {
     }    
 }
 
+sub collection :Path('/collection') :Args(0) {
+    my ( $self, $c ) = @_;
+    $c->detach('unauthorized') unless $c->user;
+}
+
+sub collection_add :Path('/collection/add') :Args(0) {
+    my ( $self, $c ) = @_;
+    $c->detach('unauthorized') unless $c->user;
+    
+    if (0) {
+        # insert data
+    } else {
+        $c->detach('collection_add_form');
+    }
+}
+
+sub collection_add_form :Private {
+    my ( $self, $c ) = @_;
+    $c->detach('unauthorized') unless $c->user;
+    
+    
+}
+
+sub unauthorized :Private {
+    my ( $self, $c ) = @_;
+    $c->response->body( 'You must log in to manage your collection' );
+    $c->response->status(403);
+}
+
 =head2 default
 
 Standard 404 error page

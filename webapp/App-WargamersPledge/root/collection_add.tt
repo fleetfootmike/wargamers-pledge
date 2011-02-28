@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset='utf-8'/>
+    <title>Collection - Wargamers Pledge</title>
+</head>
+
+<body>
+    
+    <form action="/collection/add" method="post">
+        <div class="field">
+            <label id="purchase_date">Purchase Date</label>
+            <input type="date" name="purchase_date" id="purchase_date"/>
+        </div>
+        
+        <p>We ask you to describe the packs of miniatures you buy so we can
+        collect data on what sets of figures can be bought. Once we have
+        enough data, we'll help you find the pack you have bought based on a
+        few letters, and then fill in the rest of the form for you.</p>
+        
+        <fieldset>
+            <legend>Pack</legend>
+
+            <div class="field">
+               <label id="manufacturer">Manufacturer</label>
+               <input name="manufacturer" id="manufacturer"/>
+            </div>
+            
+            <div class="field">
+               <label id="pack">Pack name</label>
+               <input name="pack" id="pack"/>
+            </div>
+
+            <fieldset>
+                <legend>Model</legend>
+                
+                <div class="field">
+                   <label id="model_1">Model name</label>
+                   <input name="model_1" id="model_1"/>
+                </div>
+                
+                <div class="field">
+                   <label id="quantity_1">Quantity in pack</label>
+                   <input type="number" name="quantity_1" id="quantity_1" value="1"/>
+                </div>
+                
+            </fieldset>
+            
+            <fieldset>
+                <legend>Model</legend>
+                
+                <div class="field">
+                   <label id="model_2">Model name</label>
+                   <input name="model_2" id="model_2"/>
+                </div>
+                
+                <div class="field">
+                   <label id="quantity_2">Quantity in pack</label>
+                   <input type="number" name="quantity_2" id="quantity_2" value="0"/>
+                </div>
+                
+            </fieldset>
+            
+            
+            <fieldset>
+                <legend>Model</legend>
+                
+                <div class="field">
+                   <label id="model_3">Model name</label>
+                   <input name="model_3" id="model_3"/>
+                </div>
+                
+                <div class="field">
+                   <label id="quantity_3">Quantity in pack</label>
+                   <input type="number" name="quantity_3" id="quantity_3" value="0"/>
+                </div>
+                
+            </fieldset>
+            
+               <fieldset>
+                <legend>Model</legend>
+                
+                <div class="field">
+                   <label id="model_4">Model name</label>
+                   <input name="model_4" id="model_4"/>
+                </div>
+                
+                <div class="field">
+                   <label id="quantity_4">Quantity in pack</label>
+                   <input type="number" name="quantity_4" id="quantity_4" value="0"/>
+                </div>
+                
+            </fieldset>
+
+
+            <fieldset>
+                <legend>Model</legend>
+                
+                <div class="field">
+                   <label id="model_5">Model name</label>
+                   <input name="model_5" id="model_5"/>
+                </div>
+                
+                <div class="field">
+                   <label id="quantity_5">Quantity in pack</label>
+                   <input type="number" name="quantity_5" id="quantity_5" value="0"/>
+                </div>
+                
+            </fieldset>
+                        
+            
+        </fieldset>
+    </form>
+
+</body>
+</html>
