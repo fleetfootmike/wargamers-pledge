@@ -19,6 +19,7 @@ requires 'Config::General'; # This should reflect the config file format you've 
                  # See Catalyst::Plugin::ConfigLoader for supported formats
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::Session::State::Cookie';
+requires 'Catalyst::View::TT';
 requires 'Devel::Declare';
 requires 'ExtUtils::Depends';
 requires 'TryCatch';
