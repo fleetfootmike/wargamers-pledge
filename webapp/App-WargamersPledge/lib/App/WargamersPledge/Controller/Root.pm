@@ -1,6 +1,7 @@
 package App::WargamersPledge::Controller::Root;
 use Moose;
 use namespace::autoclean;
+use DateTime;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -101,6 +102,12 @@ sub collection_add_form :Private {
     my ( $self, $c ) = @_;
     $c->detach('unauthorized') unless $c->user;
     
+    my $data = $c->request->body_parameters;
+    unless ($data->{purchase_date}) {
+        $data->{purchase_date} = DateTime->now->ymd;
+    }
+    
+    $c->stash($data);
     
 }
 
