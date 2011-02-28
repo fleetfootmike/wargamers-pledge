@@ -28,8 +28,13 @@ The root page (/)
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
+    
     # Move this somewhere we can run it for everything
+    
+    # Path to redirect back to if we have a form that takes us off page
+    $c->stash(request => $c->req->uri->path . '?' . $c->req->uri->query);
+    
+    # Get details of logged in user
     if ($c->user) {
         my $current_user = {
             user => $c->user->username
@@ -57,8 +62,21 @@ sub login :Path('login') {
         }
     }
     
-    if ($auth) {
-        $c->response->body( 'logged in' );
+    # Unless there was an attempt to login which FAILED
+    unless ((defined $_POST->{username} || defined $_POST->{password}) && !$auth) {
+    
+        # Redirect to whereever we came from, or the homepage
+        my $return_to = $_POST->{return_to} || '/';
+    
+        # Check for infinite loops.
+        # TODO: We won't generate things like //login but we should add URI
+        #       normalisation to this.
+        $return_to = "/" if ($return_to =~ m!^/login!);
+        
+        # TOOD: Is this secure enough? We must not let spammers redirect through us.
+        my $redir = $c->req->uri->scheme . '://' . $c->req->uri->host . ':' . $c->req->uri->port . $return_to;
+        $c->res->redirect( $redir );
+        
     } else {
         # We show the login form
     }    
