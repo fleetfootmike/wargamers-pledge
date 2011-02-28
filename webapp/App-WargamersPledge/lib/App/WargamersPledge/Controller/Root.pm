@@ -29,21 +29,32 @@ The root page (/)
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    # Hello World
-    
+    # Move this somewhere we can run it for everything
+    if ($c->user) {
+        my $current_user = {
+            user => $c->user->username
+        };
+        $c->stash(current_user => $current_user);
+    }
 }
 
 sub login :Path('login') {
     my ( $self, $c ) = @_;
+    my $auth;
+    
     my $_POST = $c->request->body_parameters;
     
-    my $auth = $c->user();
-    
-    if ($_POST->{username}) {
-        $auth = $c->authenticate({
-                          user => $_POST->{username},
-                          password => $_POST->{password}
-                          });
+    if ($_POST->{action} && $_POST->{action} eq 'logout') {
+        $c->logout;
+    } else {
+        $auth = $c->user();
+        
+        if ($_POST->{username}) {
+            $auth = $c->authenticate({
+                              user => $_POST->{username},
+                              password => $_POST->{password}
+                              });
+        }
     }
     
     if ($auth) {

@@ -8,6 +8,17 @@
 
 <body>
     <h1>Wargamers Pledge</h1>
+    
+    [% IF current_user %]
+        Insert icon, links to admin and
+        <form action="/login" method="post">
+            <input type="hidden" name="action" value="logout"/>
+            <input type="hidden" name="return_to" value="[% current_uri | html %]" />
+            <input type="submit" value="Logout"/>
+        </form>, etc here
+    [% ELSE %]
+        Insert link to login form
+    [% END %]
 
 </body>
 </html>
