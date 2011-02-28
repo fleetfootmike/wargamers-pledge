@@ -13,7 +13,7 @@
         Insert icon, links to admin and
         <form action="/login" method="post">
             <input type="hidden" name="action" value="logout"/>
-            <input type="hidden" name="return_to" value="[% rel_uri | html %]" />
+            <input type="hidden" name="return_to" value="[% here | html %]" />
             <input type="submit" value="Logout"/>
         </form>, etc here
     [% ELSE %]
@@ -29,7 +29,7 @@
             <div class="field">
                 <input type="submit" value="submit"/>
             </div>
-            <input type="hidden" name="return_to" value="[% rel_uri | html %]" />
+            <input type="hidden" name="return_to" value="[% here | html %]" />
             <input type="submit" value="Logout"/>
         </form>
     [% END %]

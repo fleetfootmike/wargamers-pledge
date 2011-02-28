@@ -32,7 +32,7 @@ sub index :Path :Args(0) {
     # Move this somewhere we can run it for everything
     
     # Path to redirect back to if we have a form that takes us off page
-    $c->stash(request => $c->req->uri->path . '?' . $c->req->uri->query);
+    $c->stash(here => $c->req->uri);
     
     # Get details of logged in user
     if ($c->user) {
@@ -73,9 +73,8 @@ sub login :Path('login') {
         #       normalisation to this.
         $return_to = "/" if ($return_to =~ m!^/login!);
         
-        # TOOD: Is this secure enough? We must not let spammers redirect through us.
-        my $redir = $c->req->uri->scheme . '://' . $c->req->uri->host . ':' . $c->req->uri->port . $return_to;
-        $c->res->redirect( $redir );
+        $return_to = '/' unless (URI->new($return_to)->host eq $c->req->uri->host);
+        $c->res->redirect( $return_to );
         
     } else {
         # We show the login form
