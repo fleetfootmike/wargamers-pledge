@@ -98,14 +98,35 @@ sub collection_add :Path('/collection/add') :Args(0) {
     }
 }
 
+use Data::Dump qw/dump/;
+
 sub collection_add_form :Private {
     my ( $self, $c ) = @_;
     $c->detach('unauthorized') unless $c->user;
     
     my $data = $c->request->body_parameters;
-    unless ($data->{purchase_date}) {
-        $data->{purchase_date} = DateTime->now->ymd;
+    
+    use Data::Dump;
+    warn dump $data;
+
+    $data->{purchase_date} //= DateTime->now->ymd;
+    
+    my @models;
+    my $models_raw = $data->{models};
+    if (!defined $models_raw) {
+        @models = (1);
+    } elsif (ref $models_raw) {
+        @models = @{$models_raw};
+    } else {
+        @models = ($models_raw);
     }
+    if ($data->{action} && $data->{action} eq "Add another type of model") {
+        push @models, ($models[-1] + 1);
+    }
+    $data->{models} = \@models;
+    
+    
+    warn dump $data;
     
     $c->stash($data);
     

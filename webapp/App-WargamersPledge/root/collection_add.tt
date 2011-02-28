@@ -42,24 +42,29 @@
                <input name="pack" id="pack"/>
             </div>            
 
-            [% FOREACH model = [1,2,3] %]
+            [% FOREACH model = models %]
 
             <fieldset>
                 <legend>Model</legend>
                 
+                <input type="hidden" name="models" value="[% model | html %]"/>
+                
                 <div class="field">
-                   <label for="model_1">Model name</label>
-                   <input name="model_1" id="model_1"/>
+                   <label for="model_[% model | html %]">Model name</label>
+                   <input name="model_[% model | html %]" id="model_[% model | html %]"/>
                 </div>
                 
                 <div class="field">
-                   <label for="quantity_1">Quantity in pack</label>
-                   <input type="number" name="quantity_1" id="quantity_1" value="1"/>
+                   <label for="quantity_[% model | html %]">Quantity in pack</label>
+                   <input type="number" name="quantity_[% model | html %]" id="quantity_[% model | html %]" value="1"/>
                 </div>
                 
             </fieldset>
             
             [% END %]
+            <div class="field">
+                <input type="submit" name="action" value="Add another type of model" />
+            </div>
             
         </fieldset>
         <input type="submit" name="action" value="Save and view" />
