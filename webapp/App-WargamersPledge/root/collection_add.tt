@@ -19,10 +19,8 @@
         <div id="content">
             
     <form action="/collection/add" method="post">
-        <div class="field">
-            <label for="purchase_date">Purchase Date</label>
-            <input type="date" name="purchase_date" id="purchase_date" value="[% form_data.purchase_date | html %]" />
-        </div>
+        [%- MACRO field INCLUDE 'includes/formfield.tt' %]
+        [% field(fieldtype="date" human_name="Purchase Date" name="purchase_date" note="(YYYY-MM-DD)") %]
         
         <p>We ask you to describe the packs of miniatures you buy so we can
         collect data on what sets of figures can be bought. Once we have
@@ -31,44 +29,26 @@
         
         <fieldset>
             <legend>Pack</legend>
-
-            <div class="field">
-               <label for="manufacturer">Manufacturer</label>
-               <input name="manufacturer" id="manufacturer" value="[% form_data.manufacturer | html %]"/>
-            </div>
+            [% field(human_name="Manufacturer" name="manufacturer") %]
+            [% field(human_name="Pack name" name="pack") %]
             
-            <div class="field">
-               <label for="pack">Pack name</label>
-               <input name="pack" id="pack" value="[% form_data.pack | html %]"/>
-            </div>            
-
             [% FOREACH model = form_data.models %]
-
             <fieldset>
                 <legend>Model</legend>
-                
                 <input type="hidden" name="models" value="[% model | html %]"/>
-                
-                <div class="field">
-                   <label for="model_[% model | html %]">Model name</label>
-                   <input name="model_[% model | html %]" id="model_[% model | html %]" value="[% field = 'model_' _ model; form_data.$field %]"/>
-                </div>
-                
-                <div class="field">
-                   <label for="quantity_[% model | html %]">Quantity in pack</label>
-                   <input type="number" name="quantity_[% model | html %]" id="quantity_[% model | html %]" value="[% field = 'quantity_' _ model; form_data.$field %]"/>
-                </div>
-                
+                [% field(human_name="Model name" name="model_" _ model) %]
+                [% field(human_name="Quantity in pack" name="quantity_" _ model fieldtype="number") %]
             </fieldset>
             
             [% END %]
+
             <div class="field">
                 <input type="submit" name="action" value="Add another type of model" />
             </div>
             
         </fieldset>
         <input type="submit" name="action" value="Save and view" />
-        <input type="submit" name="action" value="Save and add more" />
+        <input type="submit" name="action" value="Save and add another pack" />
     </form>
         </div>
     </section>

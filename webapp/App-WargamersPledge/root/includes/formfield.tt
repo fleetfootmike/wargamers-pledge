@@ -1,0 +1,28 @@
+<div class="field">
+    <label
+           for="[% id || name | html %]">
+            [% human_name | html %]
+    </label>
+    <input
+           [%- IF fieldtype %]
+           type="[% fieldtype | html %]"
+           [%- END %]
+           name="[% name | html %]"
+           id="[% id || name | html %]"
+           value="[% form_data.$name | html %]"/>
+    [%- IF note %]
+        <label
+               for="[% id || name | html %]"
+               class="note">
+                [% note | html %]
+        </label>
+    [%- END %]
+    [%- IF errors.$name %]
+        <label
+               for="[% id || name | html %]"
+               class="error">
+                [% errors.$name | html %]
+        </label>
+    [%- END %]
+</div>
+            

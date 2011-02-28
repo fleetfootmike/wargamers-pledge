@@ -24,12 +24,22 @@ label {
     padding-right: 1em;
 }
 
-label.note {
+label.note,
+label.error {
     width: auto;
     text-align: left;
     padding-left: 1em;
+}
+
+label.note {
     font-size: 80%;
 }
+
+label.error {
+    color: red;
+    font-weight: bold;
+}
+
 
 input {
     float: left;

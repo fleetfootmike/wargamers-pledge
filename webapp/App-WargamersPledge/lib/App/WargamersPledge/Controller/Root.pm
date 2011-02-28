@@ -91,14 +91,57 @@ sub collection_add :Path('/collection/add') :Args(0) {
     my ( $self, $c ) = @_;
     $c->detach('unauthorized') unless $c->user;
     
+    my $data = $c->request->body_parameters;
+    $c->detach('collection_add_form') unless $data->{action}; 
+    
+    # Check the form data for errors
+    my $errors = {};
+    # Required fields
+    for my $field (qw/manufacturer pack purchase_date/) {
+        my $submitted = $data->{$field};
+        if (!defined $submitted || $submitted =~ m/^\s*$/) {
+            $errors->{$field} = "This field is required";
+        }
+    }
+    
+    unless ($errors->{purchase_date}) {
+         if ($data->{purchase_date} !~ m/^\d{4}-\d{2}-\d{2}$/) {
+            $errors->{purchase_date} = "The date must be formatted as YYYY-MM-DD";
+         } else {
+            my @ymd = split '-', $data->{purchase_date};
+            my $dt = DateTime->new(year => $ymd[0], month => $ymd[1], day => $ymd[2]);
+            if ($dt->ymd ne $data->{purchase_date}) {
+                $errors->{purchase_date} = "The specified date does not exist";
+            } elsif ($dt > DateTime->now) {
+                $errors->{purchase_date} = "You must not specify a date in the future";
+            }
+         }
+    }
+    
+    my @models = listme($data->{models});
+    for my $model_id (@models) {
+        my $name = $data->{'model_' . $model_id};
+        if (!defined $name || $name =~ m/^\s*$/) {
+            $errors->{'model_' . $model_id} = "This field is required";
+        }
+        my $quantity = $data->{'quantity_' . $model_id};
+        if (!defined $quantity || $quantity =~ m/^\s*$/) {
+            $errors->{'quantity_' . $model_id} = "This field is required";
+        } elsif ($quantity ne (int $quantity) || (int $quantity) < 1) {
+            $errors->{'quantity_' . $model_id} = "This must be a whole number equal to or higher than 1";
+        }
+        
+    }
+    if (keys %$errors) {
+        $c->stash(errors => $errors);
+    }
+    
     if (0) {
         # insert data
     } else {
         $c->detach('collection_add_form');
     }
 }
-
-use Data::Dump qw/dump/;
 
 sub collection_add_form :Private {
     my ( $self, $c ) = @_;
@@ -108,15 +151,8 @@ sub collection_add_form :Private {
     
     $data->{purchase_date} //= DateTime->now->ymd;
     
-    my @models;
-    my $models_raw = $data->{models};
-    if (!defined $models_raw) {
-        @models = (1);
-    } elsif (ref $models_raw) {
-        @models = @{$models_raw};
-    } else {
-        @models = ($models_raw);
-    }
+    my @models = listme($data->{models});
+    
     if ($data->{action} && $data->{action} eq "Add another type of model") {
         push @models, ($models[-1] + 1);
     }
@@ -124,12 +160,28 @@ sub collection_add_form :Private {
     
     $c->stash(form_data => $data);
     
+    
+    
+    
 }
 
 sub unauthorized :Private {
     my ( $self, $c ) = @_;
     $c->response->body( 'You must log in to manage your collection' );
     $c->response->status(403);
+}
+
+sub listme :Private {
+    my @models;
+    my $models_raw = shift;
+    if (!defined $models_raw) {
+        @models = (1);
+    } elsif (ref $models_raw) {
+        @models = @{$models_raw};
+    } else {
+        @models = ($models_raw);
+    }
+    return @models;
 }
 
 =head2 default
