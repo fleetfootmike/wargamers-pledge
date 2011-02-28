@@ -21,7 +21,7 @@
     <form action="/collection/add" method="post">
         <div class="field">
             <label for="purchase_date">Purchase Date</label>
-            <input type="date" name="purchase_date" id="purchase_date" value="[% purchase_date | html %]" />
+            <input type="date" name="purchase_date" id="purchase_date" value="[% form_data.purchase_date | html %]" />
         </div>
         
         <p>We ask you to describe the packs of miniatures you buy so we can
@@ -42,7 +42,7 @@
                <input name="pack" id="pack"/>
             </div>            
 
-            [% FOREACH model = models %]
+            [% FOREACH model = form_data.models %]
 
             <fieldset>
                 <legend>Model</legend>

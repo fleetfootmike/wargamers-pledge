@@ -106,9 +106,6 @@ sub collection_add_form :Private {
     
     my $data = $c->request->body_parameters;
     
-    use Data::Dump;
-    warn dump $data;
-
     $data->{purchase_date} //= DateTime->now->ymd;
     
     my @models;
@@ -125,10 +122,7 @@ sub collection_add_form :Private {
     }
     $data->{models} = \@models;
     
-    
-    warn dump $data;
-    
-    $c->stash($data);
+    $c->stash(form_data => $data);
     
 }
 
