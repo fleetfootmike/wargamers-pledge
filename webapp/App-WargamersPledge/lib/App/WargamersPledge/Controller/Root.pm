@@ -92,7 +92,16 @@ sub collection_add :Path('/collection/add') :Args(0) {
     $c->detach('unauthorized') unless $c->user;
     
     my $data = $c->request->body_parameters;
-    $c->detach('collection_add_form') unless $data->{action}; 
+
+    my ($remove_field) = map { $_ =~ m/action_delete_(\d+)/ } (keys %$data);
+    
+    if (
+        !$data->{action} ||
+        $data->{action} eq "Add another type of model" ||
+        $remove_field
+       ) {
+        $c->detach('collection_add_form');
+    }
     
     # Check the form data for errors
     my $errors = {};
@@ -130,8 +139,8 @@ sub collection_add :Path('/collection/add') :Args(0) {
         } elsif ($quantity ne (int $quantity) || (int $quantity) < 1) {
             $errors->{'quantity_' . $model_id} = "This must be a whole number equal to or higher than 1";
         }
-        
     }
+    
     if (keys %$errors) {
         $c->stash(errors => $errors);
     }
@@ -148,11 +157,15 @@ sub collection_add_form :Private {
     $c->detach('unauthorized') unless $c->user;
     
     my $data = $c->request->body_parameters;
+    my ($remove_field) = map { $_ =~ m/action_delete_(\d+)/ } (keys %$data);
     
     $data->{purchase_date} //= DateTime->now->ymd;
     
     my @models = listme($data->{models});
-    
+    if ($remove_field) {
+        warn "Trying to remove field $remove_field\n";
+        @models = grep { $_ !~ /$remove_field/ } @models;
+    }
     if ($data->{action} && $data->{action} eq "Add another type of model") {
         push @models, ($models[-1] + 1);
     }
