@@ -38,6 +38,9 @@
                 <input type="hidden" name="models" value="[% model | html %]"/>
                 [% field(human_name="Model name" name="model_" _ model) %]
                 [% field(human_name="Quantity in pack" name="quantity_" _ model fieldtype="number") %]
+                [%- IF form_data.models.size > 1 %]
+                <input type="submit" class="delete" name="action_delete_[% model | html %]" value="Remove"/>
+                [%- END %]
             </fieldset>
             
             [% END %]
