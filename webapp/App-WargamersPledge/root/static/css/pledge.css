@@ -1,0 +1,133 @@
+body {
+    background: #f3efe0;
+    color: white;
+    margin-top: 20px;
+    font-family: Helvetica, sans-serif; 
+}
+
+#wrapper > header {
+    width: 800px;
+    background: #8e0012;
+    color: #dacd00;
+    margin: 0 auto 10px auto;
+    position: relative;
+    z-index: 2;
+    padding: 5px;
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 200%;
+    font-weight: bolder;
+}
+
+#wrapper > header * {
+    margin: 0;
+}
+
+#content {
+    position: relative;
+    z-index: 1;
+    width: 780px;
+    padding: 70px 5px 5px 5px;
+    margin: -60px auto 0 auto;
+    background: #f1f2f4;
+    color: black;
+}
+
+#content,
+#wrapper > header,
+#content section > header,
+#content article > header,
+#content section.note {
+    -o-box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    -ms-box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+#content section > header {
+    font-size: 110%;
+}
+
+#content section > header,
+#content article > header{
+    background: #8e0012;
+    color: #dacd00;
+    padding: 5px 10px 5px 25px;
+    margin-left: -15px;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+#content section > header {
+    width: 40%;
+}
+
+#content section article > header {
+    width: 35%;
+}
+
+#content > section.note {
+    margin: 0px 25px 10px 25px;
+    padding: 5px;
+    width: 300px;
+    float: right;
+    background: #ffff80;
+    color: black;
+    font-family: 'Palatino Linotype','Book Antiqua',Palatino,FreeSerif,serif;
+    -webkit-transform: rotate(3deg);
+    -moz-transform: rotate(3deg);
+    -o-transform: rotate(3deg);
+    -ms-transform: rotate(3deg);
+    transform: rotate(3deg);
+}
+
+#content > section.note > header {
+    margin: 5px;
+    padding: 5px;
+    width: auto;
+    text-align: center;
+    background: transparent;
+    color: black;
+    -o-box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    -ms-box-shadow: none;
+    box-shadow: none;
+}
+
+section.note ul {
+    list-style-type: square;
+    margin-left: 2em;
+}
+
+section.note li {
+    margin: 4px 0;
+}
+
+/*
+#content > section > header + * {
+    clear: left;
+}
+*/
+
+blockquote.major {
+    font-size: 180%;
+    font-family: 'Palatino Linotype','Book Antiqua',Palatino,FreeSerif,serif;
+    font-style: italic;
+    text-align: center;
+}
+
+header {
+    position: relative;
+}
+
+header .curl {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    height: 10px;
+    width: 10px;
+    display: block;
+    background-image: url(/static/images/left-corner.png);
+}
