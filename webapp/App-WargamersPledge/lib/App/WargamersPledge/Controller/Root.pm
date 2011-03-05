@@ -103,6 +103,8 @@ sub collection_add :Path('/collection/add') :Args(0) {
         $c->detach('collection_add_form');
     }
     
+    warn "About to check the form for errors";
+    
     # Check the form data for errors
     my $errors = {};
     # Required fields
@@ -127,6 +129,8 @@ sub collection_add :Path('/collection/add') :Args(0) {
          }
     }
     
+    warn "There were no errors";
+    
     my @models = listme($data->{models});
     for my $model_id (@models) {
         my $name = $data->{'model_' . $model_id};
@@ -141,15 +145,37 @@ sub collection_add :Path('/collection/add') :Args(0) {
         }
     }
     
+    
+    
     if (keys %$errors) {
         $c->stash(errors => $errors);
-    }
-    
-    if (0) {
-        # insert data
-    } else {
         $c->detach('collection_add_form');
     }
+    
+    warn 'No keys for the errors';
+    
+    # All the data is good. Insert it into the database
+    
+    # Start using DBIx::Class directly. We can worry about abstractions later.
+    
+    my $manufacturer = $c->model('API')->resultset('Manufacturer')->find_or_create(id => $data->{manufacturer});
+    
+    for my $model_id (@models) {
+        my $name = $data->{'model_' . $model_id};
+        my $quantity = $data->{'quantity_' . $model_id};
+        
+        my $figure = $manufacturer->find_or_create_related('figures' => { description => $name });
+        my $purchase = $figure->find_or_create_related('purchase' => {
+                                                                     user => $c->user,
+                                                                     acquired => $data->{purchase_date}
+                                                                     });
+        $quantity += $purchase->num;
+        $purchase->num($quantity);
+        $purchase->update;
+    }
+    
+    
+    
 }
 
 sub collection_add_form :Private {
