@@ -15,8 +15,7 @@ requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
 requires 'Moose';
 requires 'namespace::autoclean';
-requires 'Config::General'; # This should reflect the config file format you've chosen
-                 # See Catalyst::Plugin::ConfigLoader for supported formats
+requires 'Config::General'; 
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::View::TT';
@@ -30,6 +29,7 @@ requires 'DBIx::Class::Schema';
 requires 'DBIx::Class::EncodedColumn';
 requires 'Catalyst::Plugin::Authorization::Roles';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
+requires 'Catalyst::Authentication::Credential::Twitter';
 
 test_requires 'Test::More' => '0.88';
 catalyst;
