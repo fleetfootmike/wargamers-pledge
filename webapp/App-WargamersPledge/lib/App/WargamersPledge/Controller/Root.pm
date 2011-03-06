@@ -43,7 +43,7 @@ sub index :Path :Args(0) {
     }
 }
 
-sub login :Path('login') {
+sub login :Path('login') :Args(0) {
     my ( $self, $c ) = @_;
     my $auth;
     
@@ -59,6 +59,9 @@ sub login :Path('login') {
                               user => $_POST->{username},
                               password => $_POST->{password}
                               });
+        } elsif ($_POST->{twitter}) {
+                my $realm = $c->get_auth_realm('twitter');
+                $c->res->redirect( $realm->credential->authenticate_twitter_url($c) );
         }
     }
     
@@ -80,6 +83,49 @@ sub login :Path('login') {
         # We show the login form
     }    
 }
+
+sub twitter_callback : Path('login/twitter') : Args(0) {
+    my ( $self, $c ) = @_;
+
+    if ( my $user = $c->authenticate( undef, 'twitter' ) ) {
+
+        # user has an account - redirect or do something cool
+        $c->res->redirect("/");
+    }
+    else {
+        
+        
+        
+#        use Data::Dump qw/dump/;
+#        $c->response->content_type('text/plain');
+#        $c->response->body(dump $c->user_session);
+
+        # user doesn't have an account - either detect Twitter
+        # credentials and create one, or return an error.
+        #
+        # Note that "request_token" and "request_token_secret"
+        # are stored in $c->user_session as hashref variables under
+        # the same names
+        
+        # version 1 - create a user with default credentials
+
+        my ($twitter_user_id) = ($c->user_session->{access_token} =~ m{^(\d+)-} );
+        die "Unable to extract twitter user id" unless defined $twitter_user_id;
+
+        my $user = $c->model('API')->resultset('User')->create({
+                id => 'test_twitter_user'
+            });
+        
+        my $twitter_user => $user->create_related('auth_twitter', {
+            twitter_user_id => $twitter_user_id,
+            twitter_access_token => $c->user_session->{access_token},
+            twitter_access_token_secret => $c->user_session->{access_token_secret}
+        });
+        
+    }
+
+}
+
 
 =head2 default
 

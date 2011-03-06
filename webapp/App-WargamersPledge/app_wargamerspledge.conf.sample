@@ -1,0 +1,18 @@
+name App::WargamersPledge
+
+<authentication>
+    <realms>
+        <twitter>
+            <credential>
+                class Twitter
+            </credential>
+            consumer_key SECRET
+            consumer_secret SECRET
+            callback_url http://staging.wargamers-pledge.com/login/twitter
+            <store>
+                class DBIx::Class
+                user_model API::AuthTwitter
+            </store>
+        </twitter>
+    </realms>
+</authentication>

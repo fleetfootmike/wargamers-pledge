@@ -19,6 +19,11 @@
     [% ELSE %]
         <form action="/login" method="post">
             <div class="field">
+                <button type="submit" name="twitter" value="twitter">
+                    Twitter
+                </button>
+            </div>
+            <div class="field">
                 <label id="username">Username</label>
                 <input name="username" id="username"/>
             </div>

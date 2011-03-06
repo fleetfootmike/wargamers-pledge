@@ -101,6 +101,13 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+__PACKAGE__->might_have(
+  "auth_twitter",
+  "App::WargamersPledge::Schema::Result::AuthTwitter",
+  { "foreign.user" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 purchases
 
 Type: has_many
