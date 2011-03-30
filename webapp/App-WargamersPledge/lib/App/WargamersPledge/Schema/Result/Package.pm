@@ -73,6 +73,7 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:14
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cBYOEzPNjnCTeF5r9L/hDQ
 
+__PACKAGE__->many_to_many( figures => 'package_figures', 'figure');
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
