@@ -1,40 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SQLContainer>
     <SQLTable>
-        <name><![CDATA[manufacturer]]></name>
-        <schema><![CDATA[]]></schema>
-        <tableType><![CDATA[InnoDB]]></tableType>
-        <location>
-            <x>768.000000</x>
-            <y>103.000000</y>
-        </location>
-        <size>
-            <width>181.000000</width>
-            <height>40.000000</height>
-        </size>
-        <SQLField>
-            <name><![CDATA[id]]></name>
-            <type><![CDATA[VARCHAR(255)]]></type>
-            <primaryKey>1</primaryKey>
-            <zorder><![CDATA[1]]></zorder>
-            <uid><![CDATA[D63BBC8B-1098-4C6E-91EC-4C79205FF4F5]]></uid>
-            <unique><![CDATA[1]]></unique>
-            <forcedUnique><![CDATA[1]]></forcedUnique>
-            <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
-        </SQLField>
-        <temporaryOriginalName><![CDATA[Table5]]></temporaryOriginalName>
-        <table_character_set><![CDATA[utf8]]></table_character_set>
-        <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
-        <uid><![CDATA[F4CE97E6-3ADA-481F-BE39-AB9A5786AA7A]]></uid>
-        <zorder><![CDATA[9]]></zorder>
-    </SQLTable>
-    <SQLTable>
         <name><![CDATA[user]]></name>
         <schema><![CDATA[]]></schema>
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
-            <x>275.000000</x>
-            <y>618.000000</y>
+            <x>351.000000</x>
+            <y>698.000000</y>
         </location>
         <size>
             <width>219.000000</width>
@@ -185,6 +157,40 @@
         <temporaryOriginalName><![CDATA[auth_password]]></temporaryOriginalName>
     </SQLTable>
     <SQLTable>
+        <name><![CDATA[manufacturer]]></name>
+        <schema><![CDATA[]]></schema>
+        <tableType><![CDATA[InnoDB]]></tableType>
+        <location>
+            <x>50.000000</x>
+            <y>420.000000</y>
+        </location>
+        <size>
+            <width>181.000000</width>
+            <height>60.000000</height>
+        </size>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[VARCHAR(255)]]></type>
+            <primaryKey>1</primaryKey>
+            <zorder><![CDATA[1]]></zorder>
+            <uid><![CDATA[D63BBC8B-1098-4C6E-91EC-4C79205FF4F5]]></uid>
+            <unique><![CDATA[1]]></unique>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[moderated]]></name>
+            <type><![CDATA[BOOL]]></type>
+            <uid><![CDATA[EF0745FD-D408-49AC-B6D9-09AC5C4EBAC8]]></uid>
+            <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
+        </SQLField>
+        <temporaryOriginalName><![CDATA[Table5]]></temporaryOriginalName>
+        <table_character_set><![CDATA[utf8]]></table_character_set>
+        <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
+        <uid><![CDATA[F4CE97E6-3ADA-481F-BE39-AB9A5786AA7A]]></uid>
+        <zorder><![CDATA[9]]></zorder>
+    </SQLTable>
+    <SQLTable>
         <name><![CDATA[figure]]></name>
         <schema><![CDATA[]]></schema>
         <tableType><![CDATA[InnoDB]]></tableType>
@@ -193,7 +199,7 @@
             <y>186.000000</y>
         </location>
         <size>
-            <width>199.000000</width>
+            <width>222.000000</width>
             <height>140.000000</height>
         </size>
         <SQLField>
@@ -226,16 +232,25 @@
             <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
         </SQLField>
         <SQLField>
-            <name><![CDATA[quantity]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <uid><![CDATA[80EBB791-08B4-430B-818C-B26017CE03F6]]></uid>
-            <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
-        </SQLField>
-        <SQLField>
             <name><![CDATA[moderated]]></name>
             <type><![CDATA[BOOL]]></type>
             <uid><![CDATA[48040B4C-0A35-4C6C-A94F-44167321FAFB]]></uid>
             <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[manufacturer]]></name>
+            <type><![CDATA[VARCHAR(255)]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>manufacturer</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[manufacturer]]></referencesTable>
+            <sourceCardinality>3</sourceCardinality>
+            <destinationCardinality>1</destinationCardinality>
+            <referencesFieldUID><![CDATA[D63BBC8B-1098-4C6E-91EC-4C79205FF4F5]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[F4CE97E6-3ADA-481F-BE39-AB9A5786AA7A]]></referencesTableUID>
+            <uid><![CDATA[1A923A6F-2EFE-47C3-A0AE-A2CED4C39301]]></uid>
+            <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
+            <forcedUnique><![CDATA[0]]></forcedUnique>
         </SQLField>
         <temporaryOriginalName><![CDATA[Table1]]></temporaryOriginalName>
         <table_character_set><![CDATA[utf8]]></table_character_set>
@@ -248,8 +263,8 @@
         <schema><![CDATA[]]></schema>
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
-            <x>267.000000</x>
-            <y>356.000000</y>
+            <x>360.000000</x>
+            <y>281.000000</y>
         </location>
         <size>
             <width>193.000000</width>
@@ -334,8 +349,8 @@
         <schema><![CDATA[]]></schema>
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
-            <x>749.000000</x>
-            <y>269.000000</y>
+            <x>750.000000</x>
+            <y>261.000000</y>
         </location>
         <size>
             <width>209.000000</width>
@@ -430,8 +445,8 @@
             <y>81.000000</y>
         </location>
         <size>
-            <width>241.000000</width>
-            <height>100.000000</height>
+            <width>210.000000</width>
+            <height>80.000000</height>
         </size>
         <SQLField>
             <name><![CDATA[id]]></name>
@@ -443,21 +458,6 @@
             <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
             <unique><![CDATA[1]]></unique>
             <forcedUnique><![CDATA[1]]></forcedUnique>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[manufacturer]]></name>
-            <type><![CDATA[VARCHAR(255)]]></type>
-            <notNull>1</notNull>
-            <referencesField>id</referencesField>
-            <referencesTable>manufacturer</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[manufacturer]]></referencesTable>
-            <sourceCardinality>3</sourceCardinality>
-            <destinationCardinality>1</destinationCardinality>
-            <referencesFieldUID><![CDATA[D63BBC8B-1098-4C6E-91EC-4C79205FF4F5]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[F4CE97E6-3ADA-481F-BE39-AB9A5786AA7A]]></referencesTableUID>
-            <uid><![CDATA[FCB9F387-FE96-4D3B-A585-AFBDFDD06C05]]></uid>
-            <didChangeNameDuringValidation><![CDATA[0]]></didChangeNameDuringValidation>
         </SQLField>
         <SQLField>
             <name><![CDATA[description]]></name>
@@ -486,12 +486,13 @@
             <y>80.000000</y>
         </location>
         <size>
-            <width>161.000000</width>
+            <width>188.000000</width>
             <height>60.000000</height>
         </size>
         <SQLField>
             <name><![CDATA[package]]></name>
             <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
             <referencesField>id</referencesField>
             <referencesTable>package</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
@@ -507,6 +508,7 @@
         <SQLField>
             <name><![CDATA[figure]]></name>
             <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
             <referencesField>id</referencesField>
             <referencesTable>figure</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
@@ -666,22 +668,22 @@ c3RyaW5nPmNvbS5hcHBsZS5wcmludC5QYWdlRm9ybWF0VGlja2V0PC9zdHJpbmc+
 CjwvZGljdD4KPC9wbGlzdD4KhpKEmZkLTlNQYXBlck5hbWWGkoSZmQZpc28tYTSG
 koSZmQtOU1BhcGVyU2l6ZYaShJychIQMe19OU1NpemU9ZmZ9oYFTAoFKA4aGhg==
 ]]></encodedPrintInfo>
-        <windowLocationY><![CDATA[171.000000]]></windowLocationY>
+        <windowLocationY><![CDATA[43.000000]]></windowLocationY>
         <fileversion><![CDATA[3.1]]></fileversion>
         <exportDialect><![CDATA[mysql]]></exportDialect>
         <uid><![CDATA[BCB29CDD-0DB6-445E-A9B4-39EE4282077B]]></uid>
-        <windowLocationX><![CDATA[128.000000]]></windowLocationX>
+        <windowLocationX><![CDATA[0.000000]]></windowLocationX>
         <autoSizeTablesOption><![CDATA[1]]></autoSizeTablesOption>
         <hideFieldIcons><![CDATA[0]]></hideFieldIcons>
         <dropTableOption><![CDATA[0]]></dropTableOption>
         <PageGridVisible><![CDATA[0]]></PageGridVisible>
-        <SourceSplitViewState><![CDATA[2 436 1176]]></SourceSplitViewState>
+        <SourceSplitViewState><![CDATA[2 387.045 1043.96]]></SourceSplitViewState>
         <documentScaleFactor><![CDATA[1]]></documentScaleFactor>
         <snapToGrid><![CDATA[0]]></snapToGrid>
-        <windowWidth><![CDATA[1621.000000]]></windowWidth>
+        <windowWidth><![CDATA[1440.000000]]></windowWidth>
         <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
         <hideFieldTypes><![CDATA[0]]></hideFieldTypes>
-        <windowHeight><![CDATA[954.000000]]></windowHeight>
+        <windowHeight><![CDATA[835.000000]]></windowHeight>
     </SQLDocumentInfo>
     <containerName><![CDATA[model controller orginal container]]></containerName>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

@@ -1,11 +1,5 @@
 /* SQLEditor (MySQL (2))*/
 
-CREATE TABLE manufacturer
-(
-id VARCHAR(255) UNIQUE,
-PRIMARY KEY (id)
-) ENGINE=InnoDB CHARACTER SET=utf8;
-
 CREATE TABLE user
 (
 id VARCHAR(255) NOT NULL UNIQUE,
@@ -32,14 +26,21 @@ password VARCHAR(255) NOT NULL,
 PRIMARY KEY (user)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
+CREATE TABLE manufacturer
+(
+id VARCHAR(255) UNIQUE,
+moderated BOOL,
+PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET=utf8;
+
 CREATE TABLE figure
 (
 id INTEGER UNIQUE,
 package INTEGER NOT NULL,
 scale VARCHAR(15),
 description VARCHAR(255),
-quantity INTEGER,
 moderated BOOL,
+manufacturer VARCHAR(255),
 PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
@@ -71,7 +72,6 @@ PRIMARY KEY (id)
 CREATE TABLE package
 (
 id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-manufacturer VARCHAR(255) NOT NULL,
 description VARCHAR(255) NOT NULL,
 moderated BOOL,
 PRIMARY KEY (id)
@@ -80,7 +80,8 @@ PRIMARY KEY (id)
 CREATE TABLE package_figure
 (
 package INTEGER,
-figure INTEGER
+figure INTEGER,
+PRIMARY KEY (package,figure)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
 CREATE INDEX id_idx ON user(id);
@@ -92,6 +93,8 @@ ALTER TABLE auth_password ADD FOREIGN KEY user_idxfk_1 (user) REFERENCES user (i
 
 CREATE INDEX password_idx ON auth_password(password);
 CREATE INDEX package_idx ON figure(package);
+ALTER TABLE figure ADD FOREIGN KEY manufacturer_idxfk (manufacturer) REFERENCES manufacturer (id);
+
 ALTER TABLE purchase ADD FOREIGN KEY user_idxfk_2 (user) REFERENCES user (id);
 
 CREATE INDEX figure_idx ON purchase(figure);
@@ -102,8 +105,6 @@ ALTER TABLE action ADD FOREIGN KEY purchase_idxfk (purchase) REFERENCES purchase
 
 CREATE INDEX use_as_idx ON action(use_as);
 ALTER TABLE action ADD FOREIGN KEY user_idxfk_3 (user) REFERENCES user (id);
-
-ALTER TABLE package ADD FOREIGN KEY manufacturer_idxfk (manufacturer) REFERENCES manufacturer (id);
 
 ALTER TABLE package_figure ADD FOREIGN KEY package_idxfk (package) REFERENCES package (id);
 

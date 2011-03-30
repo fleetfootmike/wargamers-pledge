@@ -1,0 +1,38 @@
+--- AuthPassword.pm	2011-03-30 11:50:14.000000000 +0100
++++ AuthPassword.pm.original	2011-03-30 11:51:43.000000000 +0100
+@@ -11,7 +11,7 @@
+ use namespace::autoclean;
+ extends 'DBIx::Class::Core';
+ 
+-__PACKAGE__->load_components("InflateColumn::DateTime");
++__PACKAGE__->load_components("EncodedColumn", "InflateColumn::DateTime");
+ 
+ =head1 NAME
+ 
+@@ -40,16 +40,22 @@
+ =cut
+ 
+ __PACKAGE__->add_columns(
+-  "user",
+-  {
++  "user" => {
+     data_type => "varchar",
+     default_value => "",
+     is_foreign_key => 1,
+     is_nullable => 0,
+     size => 255,
+   },
+-  "password",
+-  { data_type => "varchar", is_nullable => 0, size => 255 },
++  "password" => {
++    data_type => "varchar",
++    is_nullable => 0,
++    size => 255,
++    encode_column => 1,
++    encode_class  => 'Crypt::Eksblowfish::Bcrypt',
++    encode_args   => { key_nul => 0, cost => 8 },
++    encode_check_method => 'check_password',
++    },
+ );
+ __PACKAGE__->set_primary_key("user");
+ 

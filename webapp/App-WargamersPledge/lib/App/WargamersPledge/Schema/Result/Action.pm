@@ -57,7 +57,7 @@ __PACKAGE__->table("action");
 
   data_type: 'date'
   datetime_undef_if_invalid: 1
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 notes
 
@@ -84,7 +84,7 @@ __PACKAGE__->add_columns(
   "user",
   { data_type => "varchar", is_foreign_key => 1, is_nullable => 0, size => 255 },
   "done",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
   "notes",
   { data_type => "tinytext", is_nullable => 1 },
   "action",
@@ -125,8 +125,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-18 06:36:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wH27lu6/9TrORGKTS1xOxw
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-05 21:59:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4M/w1f029ygfN4ACO9phPw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
