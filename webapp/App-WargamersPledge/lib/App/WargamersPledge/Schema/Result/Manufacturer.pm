@@ -30,11 +30,18 @@ __PACKAGE__->table("manufacturer");
   is_nullable: 0
   size: 255
 
+=head2 moderated
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
   "id",
   { data_type => "varchar", default_value => "", is_nullable => 0, size => 255 },
+  "moderated",
+  { data_type => "tinyint", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("id");
 
@@ -56,8 +63,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-17 06:27:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KXlZrUe7jskk6FN0idvYIA
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:59x1KvVvwgyqMk6zF1fyHw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

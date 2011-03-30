@@ -25,10 +25,31 @@ __PACKAGE__->table("figure");
 
 =head2 id
 
-  data_type: 'varchar'
-  default_value: (empty string)
+  data_type: 'integer'
+  default_value: 0
   is_nullable: 0
+
+=head2 package
+
+  data_type: 'integer'
+  is_nullable: 0
+
+=head2 scale
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 15
+
+=head2 description
+
+  data_type: 'varchar'
+  is_nullable: 1
   size: 255
+
+=head2 moderated
+
+  data_type: 'tinyint'
+  is_nullable: 1
 
 =head2 manufacturer
 
@@ -37,21 +58,21 @@ __PACKAGE__->table("figure");
   is_nullable: 1
   size: 255
 
-=head2 scale
-
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 15
-
 =cut
 
 __PACKAGE__->add_columns(
   "id",
-  { data_type => "varchar", default_value => "", is_nullable => 0, size => 255 },
-  "manufacturer",
-  { data_type => "varchar", is_foreign_key => 1, is_nullable => 1, size => 255 },
+  { data_type => "integer", default_value => 0, is_nullable => 0 },
+  "package",
+  { data_type => "integer", is_nullable => 0 },
   "scale",
   { data_type => "varchar", is_nullable => 1, size => 15 },
+  "description",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "moderated",
+  { data_type => "tinyint", is_nullable => 1 },
+  "manufacturer",
+  { data_type => "varchar", is_foreign_key => 1, is_nullable => 1, size => 255 },
 );
 __PACKAGE__->set_primary_key("id");
 
@@ -77,9 +98,39 @@ __PACKAGE__->belongs_to(
   },
 );
 
+=head2 package_figures
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-17 06:27:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/wdD4be0r/5W8ydzrcZ0mQ
+Type: has_many
+
+Related object: L<App::WargamersPledge::Schema::Result::PackageFigure>
+
+=cut
+
+__PACKAGE__->has_many(
+  "package_figures",
+  "App::WargamersPledge::Schema::Result::PackageFigure",
+  { "foreign.figure" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 purchases
+
+Type: has_many
+
+Related object: L<App::WargamersPledge::Schema::Result::Purchase>
+
+=cut
+
+__PACKAGE__->has_many(
+  "purchases",
+  "App::WargamersPledge::Schema::Result::Purchase",
+  { "foreign.figure" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:x6PKtnWEb8JGgWqS77ZOQw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

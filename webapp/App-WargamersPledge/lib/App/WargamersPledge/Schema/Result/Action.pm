@@ -94,21 +94,6 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
-=head2 user
-
-Type: belongs_to
-
-Related object: L<App::WargamersPledge::Schema::Result::User>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "user",
-  "App::WargamersPledge::Schema::Result::User",
-  { id => "user" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
 =head2 purchase
 
 Type: belongs_to
@@ -124,9 +109,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 user
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-05 21:59:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4M/w1f029ygfN4ACO9phPw
+Type: belongs_to
+
+Related object: L<App::WargamersPledge::Schema::Result::User>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "user",
+  "App::WargamersPledge::Schema::Result::User",
+  { id => "user" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:13
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BGbspLHvZWWvcVclsgcVTg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
