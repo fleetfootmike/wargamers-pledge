@@ -1,5 +1,11 @@
 package App::WargamersPledge::Schema::Result::AuthTwitter;
 
+<<<<<<< HEAD
+=======
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+>>>>>>> refs/heads/master
 use strict;
 use warnings;
 
@@ -8,7 +14,11 @@ use MooseX::NonMoose;
 use namespace::autoclean;
 extends 'DBIx::Class::Core';
 
+<<<<<<< HEAD
 #__PACKAGE__->load_components("EncodedColumn", "InflateColumn::DateTime");
+=======
+__PACKAGE__->load_components("InflateColumn::DateTime");
+>>>>>>> refs/heads/master
 
 =head1 NAME
 
@@ -18,6 +28,7 @@ App::WargamersPledge::Schema::Result::AuthTwitter
 
 __PACKAGE__->table("auth_twitter");
 
+<<<<<<< HEAD
 
 __PACKAGE__->add_columns(
     "user" => {
@@ -50,6 +61,64 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key("user");
 
+=======
+=head1 ACCESSORS
+
+=head2 user
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_foreign_key: 1
+  is_nullable: 0
+  size: 255
+
+=head2 twitter_user
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=head2 twitter_user_id
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=head2 twitter_access_token
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=head2 twitter_access_token_secret
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=cut
+
+__PACKAGE__->add_columns(
+  "user",
+  {
+    data_type => "varchar",
+    default_value => "",
+    is_foreign_key => 1,
+    is_nullable => 0,
+    size => 255,
+  },
+  "twitter_user",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "twitter_user_id",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "twitter_access_token",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "twitter_access_token_secret",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+);
+__PACKAGE__->set_primary_key("user");
+__PACKAGE__->add_unique_constraint("twitter_user_id", ["twitter_user_id"]);
+>>>>>>> refs/heads/master
 
 =head1 RELATIONS
 
@@ -69,8 +138,13 @@ __PACKAGE__->belongs_to(
 );
 
 
+<<<<<<< HEAD
 # Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-18 06:36:12
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EgAWs1wzxPG/X+MGWX6l0g
+=======
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FTOt59PB/RIG7S+EZe0Fdw
+>>>>>>> refs/heads/master
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

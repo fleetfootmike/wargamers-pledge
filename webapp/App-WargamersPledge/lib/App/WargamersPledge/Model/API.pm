@@ -13,17 +13,54 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
         }
     );
 
-    method add_to_stash( Str $user, Str :$description, Int :$number, Str :$manufacturer?, Str :$scale?, Str :$notes?, DateTime :$when? ) {
+    method add_package( Str $description ) {
+        my $p = $self->resultset('package')->create( { description => $description });
+        return $p->id;
+    }
+    
+    method add_to_package( Int $package, Str :$description, Int :$count, Str :$manufacturer?, Str :$scale? ) {
+        my $p = $self->resultset('package')->find($package);
+        return $p->add_to_figures( 
+            {
+                description => $description,
+                manufacturer => $manufacturer,
+                scale => $scale,
+            },
+            { 
+                count => $count
+            },
+        );
+    }
+    
+    method add_package_to_stash( Str $user, Int $package, Str :$notes?, DateTime :$when? ) {
+        my @figures = $self->resultset('package')->find($package)->figures;
         $when //= DateTime->now();
-
+        foreach my $figure (@figures) {
+            my $link = $figure->package_figures( { package => $package });
+            
+            $self->_purchase_figure( $user, $figure->id, $link->count, $notes, $when );
+        }
+    }
+    
+    method _purchase_figure( Str $user, Int $figure, Int $number, Str $notes, DateTime $when ) {
         my $u = $self->resultset("User")->find($user);
         
-        my $args = { description => $description, purchased => $when, num => $number };
+        my $args = { purchased => $when, number => $number, figure => $figure };
+        $args->{notes} = $notes if defined $notes; 
+        $u->add_to_purchases( $args );       
+    }
+        
+    method add_to_stash( Str $user, Str :$description, Int :$number, Str :$manufacturer?, Str :$scale?, Str :$notes?, DateTime :$when? ) {
+        $when //= DateTime->now();
+        my $u = $self->resultset("User")->find($user);
+        
+        my $args = { description => $description  };
         $args->{manufacturer} = $manufacturer if defined $manufacturer;
         $args->{scale} = $scale if defined $scale;
-        $args->{notes} = $notes if defined $notes;
         
-        $u->add_to_purchases($args);
+        my $f = $self->resultset('figure')->create($args);
+        $self->_purchase_figure( $user, $f->id, $number, $notes, $when );       
+        return $f->id;
     }   
 
     method get_figure_stash (Str $user, HashRef :$search?) {

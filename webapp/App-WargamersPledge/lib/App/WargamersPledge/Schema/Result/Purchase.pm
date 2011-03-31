@@ -41,23 +41,11 @@ __PACKAGE__->table("purchase");
   is_nullable: 0
   size: 255
 
-=head2 manufacturer
+=head2 figure
 
-  data_type: 'varchar'
+  data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 1
-  size: 255
-
-=head2 description
-
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 255
-
-=head2 scale
-
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 15
 
 =head2 acquired
 
@@ -79,12 +67,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 0 },
   "user",
   { data_type => "varchar", is_foreign_key => 1, is_nullable => 0, size => 255 },
-  "manufacturer",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "description",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "scale",
-  { data_type => "varchar", is_nullable => 1, size => 15 },
+  "figure",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "acquired",
   { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
   "notes",
@@ -109,6 +93,26 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 figure
+
+Type: belongs_to
+
+Related object: L<App::WargamersPledge::Schema::Result::Figure>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "figure",
+  "App::WargamersPledge::Schema::Result::Figure",
+  { id => "figure" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
+
 =head2 user
 
 Type: belongs_to
@@ -125,8 +129,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-17 06:27:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Z2Uf6GyUFiyramdWeWzouA
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 14:38:20
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XxKJPCtwzyVVKle7tc6WYA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
