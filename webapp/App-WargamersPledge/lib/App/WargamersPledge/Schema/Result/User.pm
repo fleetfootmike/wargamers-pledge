@@ -101,8 +101,6 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-<<<<<<< HEAD
-=======
 =head2 auth_twitter
 
 Type: might_have
@@ -111,7 +109,6 @@ Related object: L<App::WargamersPledge::Schema::Result::AuthTwitter>
 
 =cut
 
->>>>>>> refs/heads/master
 __PACKAGE__->might_have(
   "auth_twitter",
   "App::WargamersPledge::Schema::Result::AuthTwitter",
