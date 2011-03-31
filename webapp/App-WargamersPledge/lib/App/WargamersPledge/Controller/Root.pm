@@ -95,19 +95,19 @@ sub login : Path('login') : Args(0) {
 sub twitter_callback : Path('login/twitter') : Args(0) {
     my ( $self, $c ) = @_;
 
-    warn "In callback";
-
-    use Data::Dump qw/dump/;
-    warn dump $c->request->body_parameters;
-
+    # IF twitter says 'no'
+    #   THEN offer to try again
     # IF user exists
     #   THEN log in
     # ELSIF form being submitted
     #   THEN check form OK and create user or rerender with errors
     # ELSE render form
 
-    if ( my $user = $c->authenticate( undef, 'twitter' ) ) {
-
+    if ( $c->request->parameters->{denied} ) {
+        warn "Hello!!!";
+        $c->stash->{template} = 'login.tt';
+        $c->stash->{data} = { failed => 'denied', default => 'twitter' };
+    } elsif ( my $user = $c->authenticate( undef, 'twitter' ) ) {
         # user has an account - redirect or do something cool
         $c->res->redirect("/");
     }
