@@ -17,26 +17,7 @@
             <input type="submit" value="Logout"/>
         </form>, etc here
     [% ELSE %]
-        <form action="/login" method="post">
-            <div class="field">
-                <button type="submit" name="twitter" value="twitter">
-                    Twitter
-                </button>
-            </div>
-            <div class="field">
-                <label id="username">Username</label>
-                <input name="username" id="username"/>
-            </div>
-            <div class="field">
-                <label id="password">Password</label>
-                <input name="password" id="password" type="password"/>
-            </div>
-            <div class="field">
-                <input type="submit" value="submit"/>
-            </div>
-            <input type="hidden" name="return_to" value="[% here | html %]" />
-            <input type="submit" value="Logout"/>
-        </form>
+        [% INCLUDE 'login.tt' %]
     [% END %]
 
 </body>
