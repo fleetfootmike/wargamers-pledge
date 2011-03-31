@@ -37,6 +37,11 @@ __PACKAGE__->table("package_figure");
   is_foreign_key: 1
   is_nullable: 0
 
+=head2 count
+
+  data_type: 'integer'
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -54,25 +59,12 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 0,
   },
+  "count",
+  { data_type => "integer", is_nullable => 0 },
 );
 __PACKAGE__->set_primary_key("package", "figure");
 
 =head1 RELATIONS
-
-=head2 package
-
-Type: belongs_to
-
-Related object: L<App::WargamersPledge::Schema::Result::Package>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "package",
-  "App::WargamersPledge::Schema::Result::Package",
-  { id => "package" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
 
 =head2 figure
 
@@ -89,9 +81,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 package
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jeJIxwKJ+EGWvqAGEo79gw
+Type: belongs_to
+
+Related object: L<App::WargamersPledge::Schema::Result::Package>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "package",
+  "App::WargamersPledge::Schema::Result::Package",
+  { id => "package" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 14:49:00
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gxWbuexbby2BYixU/wVTRw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

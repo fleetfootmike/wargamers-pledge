@@ -47,12 +47,6 @@ __PACKAGE__->table("purchase");
   is_foreign_key: 1
   is_nullable: 1
 
-=head2 scale
-
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 15
-
 =head2 acquired
 
   data_type: 'date'
@@ -75,8 +69,6 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_foreign_key => 1, is_nullable => 0, size => 255 },
   "figure",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "scale",
-  { data_type => "varchar", is_nullable => 1, size => 15 },
   "acquired",
   { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
   "notes",
@@ -101,21 +93,6 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 user
-
-Type: belongs_to
-
-Related object: L<App::WargamersPledge::Schema::Result::User>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "user",
-  "App::WargamersPledge::Schema::Result::User",
-  { id => "user" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
 =head2 figure
 
 Type: belongs_to
@@ -136,9 +113,24 @@ __PACKAGE__->belongs_to(
   },
 );
 
+=head2 user
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GQnsJOaz0JSh7p7EI7DL/g
+Type: belongs_to
+
+Related object: L<App::WargamersPledge::Schema::Result::User>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "user",
+  "App::WargamersPledge::Schema::Result::User",
+  { id => "user" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 14:38:20
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XxKJPCtwzyVVKle7tc6WYA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
