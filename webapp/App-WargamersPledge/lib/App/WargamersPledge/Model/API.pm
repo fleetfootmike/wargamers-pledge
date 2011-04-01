@@ -13,13 +13,15 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
         }
     );
 
-    method add_package( Str $description ) {
-        my $p = $self->resultset('package')->create( { description => $description });
+    method find_or_add_package( Str $manufacturer, Str $description ) {
+        my $p = $self->resultset('Package')->find_or_create( {
+                                                              # manufacturer => $manufacturer, ## TODO: Needs a manfacturer column
+                                                              description => $description });
         return $p->id;
     }
     
     method add_to_package( Int $package, Str :$description, Int :$count, Str :$manufacturer?, Str :$scale? ) {
-        my $p = $self->resultset('package')->find($package);
+        my $p = $self->resultset('Package')->find($package);
         return $p->add_to_figures( 
             {
                 description => $description,
@@ -33,7 +35,7 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
     }
     
     method add_package_to_stash( Str $user, Int $package, Str :$notes?, DateTime :$when? ) {
-        my @figures = $self->resultset('package')->find($package)->figures;
+        my @figures = $self->resultset('Package')->find($package)->figures;
         $when //= DateTime->now();
         foreach my $figure (@figures) {
             my $link = $figure->package_figures( { package => $package });

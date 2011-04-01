@@ -254,25 +254,22 @@ sub collection_add :Path('/collection/add') :Args(0) {
     
     # All the data is good. Insert it into the database
     
-    # Start using DBIx::Class directly. We can worry about abstractions later.
+    my $api = $c->model('API');
     
-    my $manufacturer = $c->model('API')->resultset('Manufacturer')->find_or_create(id => $data->{manufacturer});
+    my $package = $api->find_or_add_package($data->{manufacturer}, $data->{pack});
     
     for my $model_id (@models) {
         my $name = $data->{'model_' . $model_id};
         my $quantity = $data->{'quantity_' . $model_id};
         
-        my $figure = $manufacturer->find_or_create_related('figures' => { description => $name });
-        my $purchase = $figure->find_or_create_related('purchase' => {
-                                                                     user => $c->user,
-                                                                     acquired => $data->{purchase_date}
-                                                                     });
-        $quantity += $purchase->num;
-        $purchase->num($quantity);
-        $purchase->update;
+        $api->add_to_package($package,
+                             description => $name,
+                             count => $quantity,
+                             manufacturer => $data->{manufacturer}
+                             );        
     }
     
-    
+    $api->add_package_to_stash($c->user, $package, undef, $data->{purchase_date});
     
 }
 
