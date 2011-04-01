@@ -164,8 +164,8 @@ sub twitter_callback : Path('login/twitter') : Args(0) {
             access_token_secret => $c->user_session->{access_token_secret},
         );
 
-        my $t_user       = $nt->show_user($twitter_user_id);
-        my $twitter_name = $t_user->{name};
+        my $t_user       = $nt->show_user($twitter_user_id); 
+        my $twitter_name = $t_user->{screen_name};
 
         my $user = $c->model('API')->resultset('User')->find($twitter_name);
 
