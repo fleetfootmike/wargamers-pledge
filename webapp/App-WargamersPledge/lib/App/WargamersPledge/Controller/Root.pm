@@ -104,7 +104,6 @@ sub twitter_callback : Path('login/twitter') : Args(0) {
     # ELSE render form
 
     if ( $c->request->parameters->{denied} ) {
-        warn "Hello!!!";
         $c->stash->{template} = 'login.tt';
         $c->stash->{data} = { failed => 'denied', default => 'twitter' };
     } elsif ( my $user = $c->authenticate( undef, 'twitter' ) ) {
@@ -112,7 +111,6 @@ sub twitter_callback : Path('login/twitter') : Args(0) {
         $c->res->redirect("/");
     }
     elsif ( defined $c->request->body_parameters->{username} ) {
-        warn "Trying to create a user";
         my ($twitter_user_id) =
           ( $c->user_session->{access_token} =~ m{^(\d+)-} );
         die "Unable to extract twitter user id" unless defined $twitter_user_id;
