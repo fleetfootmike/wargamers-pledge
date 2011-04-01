@@ -1,4 +1,4 @@
-package App::WargamersPledge::Schema::Result::Manufacturer;
+package App::WargamersPledge::Schema::Result::Package;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -15,18 +15,23 @@ __PACKAGE__->load_components("InflateColumn::DateTime");
 
 =head1 NAME
 
-App::WargamersPledge::Schema::Result::Manufacturer
+App::WargamersPledge::Schema::Result::Package
 
 =cut
 
-__PACKAGE__->table("manufacturer");
+__PACKAGE__->table("package");
 
 =head1 ACCESSORS
 
 =head2 id
 
+  data_type: 'integer'
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 description
+
   data_type: 'varchar'
-  default_value: (empty string)
   is_nullable: 0
   size: 255
 
@@ -39,7 +44,9 @@ __PACKAGE__->table("manufacturer");
 
 __PACKAGE__->add_columns(
   "id",
-  { data_type => "varchar", default_value => "", is_nullable => 0, size => 255 },
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
+  "description",
+  { data_type => "varchar", is_nullable => 0, size => 255 },
   "moderated",
   { data_type => "tinyint", is_nullable => 1 },
 );
@@ -47,25 +54,26 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
-=head2 figures
+=head2 package_figures
 
 Type: has_many
 
-Related object: L<App::WargamersPledge::Schema::Result::Figure>
+Related object: L<App::WargamersPledge::Schema::Result::PackageFigure>
 
 =cut
 
 __PACKAGE__->has_many(
-  "figures",
-  "App::WargamersPledge::Schema::Result::Figure",
-  { "foreign.manufacturer" => "self.id" },
+  "package_figures",
+  "App::WargamersPledge::Schema::Result::PackageFigure",
+  { "foreign.package" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
 # Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:59x1KvVvwgyqMk6zF1fyHw
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cBYOEzPNjnCTeF5r9L/hDQ
 
+__PACKAGE__->many_to_many( figures => 'package_figures', 'figure');
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

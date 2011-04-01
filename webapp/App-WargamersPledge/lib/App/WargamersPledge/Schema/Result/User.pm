@@ -101,6 +101,21 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 auth_twitter
+
+Type: might_have
+
+Related object: L<App::WargamersPledge::Schema::Result::AuthTwitter>
+
+=cut
+
+__PACKAGE__->might_have(
+  "auth_twitter",
+  "App::WargamersPledge::Schema::Result::AuthTwitter",
+  { "foreign.user" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 purchases
 
 Type: has_many
@@ -117,8 +132,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-02-18 06:36:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Mun5aH/xIzcRbZVj7vuAQw
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Qs5cbbrNVZuupqggpzlM7w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
