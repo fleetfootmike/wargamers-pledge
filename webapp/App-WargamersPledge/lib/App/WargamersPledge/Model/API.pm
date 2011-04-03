@@ -15,9 +15,14 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
 
     method find_or_add_package( Str $manufacturer, Str $description ) {
         my $p = $self->resultset('Package')->find_or_create( {
-                                                              # manufacturer => $manufacturer, ## TODO: Needs a manfacturer column
+                                                              manufacturer => $manufacturer, 
                                                               description => $description });
         return $p->id;
+    }
+    
+    method add_manufacturer( Str $name ) {
+        $self->resultset('Manufacturer')->create(id => $name);
+        return $name;
     }
     
     method add_to_package( Int $package, Str :$description, Int :$count, Str :$manufacturer?, Str :$scale? ) {

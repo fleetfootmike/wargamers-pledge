@@ -44,14 +44,6 @@ password VARCHAR(255) NOT NULL,
 PRIMARY KEY (user)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE package
-(
-id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-description VARCHAR(255) NOT NULL,
-moderated BOOL,
-PRIMARY KEY (id)
-) ENGINE=InnoDB;
-
 CREATE TABLE manufacturer
 (
 id VARCHAR(255) UNIQUE,
@@ -59,23 +51,23 @@ moderated BOOL,
 PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE figure
+CREATE TABLE package
 (
-id INTEGER UNIQUE,
-package INTEGER NOT NULL,
-scale VARCHAR(15),
-description VARCHAR(255),
+id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+description VARCHAR(255) NOT NULL,
 moderated BOOL,
 manufacturer VARCHAR(255),
 PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE package_figure
+CREATE TABLE figure
 (
-package INTEGER,
-figure INTEGER,
-count INTEGER NOT NULL,
-PRIMARY KEY (package,figure)
+id INTEGER UNIQUE,
+scale VARCHAR(15),
+description VARCHAR(255),
+moderated BOOL,
+manufacturer VARCHAR(255),
+PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
 CREATE TABLE purchase
@@ -102,6 +94,14 @@ action ENUM('painted'),
 PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=utf8;
 
+CREATE TABLE package_figure
+(
+package INTEGER,
+figure INTEGER,
+count INTEGER NOT NULL,
+PRIMARY KEY (package,figure)
+) ENGINE=InnoDB CHARACTER SET=utf8;
+
 CREATE INDEX id_idx ON user(id);
 CREATE INDEX user_idx ON auth_twitter(user);
 ALTER TABLE auth_twitter ADD FOREIGN KEY user_idxfk (user) REFERENCES user (id);
@@ -110,19 +110,21 @@ CREATE INDEX twitter_user_id_idx ON auth_twitter(twitter_user_id);
 ALTER TABLE auth_password ADD FOREIGN KEY user_idxfk_1 (user) REFERENCES user (id);
 
 CREATE INDEX password_idx ON auth_password(password);
-CREATE INDEX package_idx ON figure(package);
-ALTER TABLE figure ADD FOREIGN KEY manufacturer_idxfk (manufacturer) REFERENCES manufacturer (id);
+CREATE INDEX manufacturer_idx ON package(manufacturer);
+ALTER TABLE package ADD FOREIGN KEY manufacturer_idxfk (manufacturer) REFERENCES manufacturer (id);
 
-ALTER TABLE package_figure ADD FOREIGN KEY package_idxfk (package) REFERENCES package (id);
-
-ALTER TABLE package_figure ADD FOREIGN KEY figure_idxfk (figure) REFERENCES figure (id);
+ALTER TABLE figure ADD FOREIGN KEY manufacturer_idxfk_1 (manufacturer) REFERENCES manufacturer (id);
 
 ALTER TABLE purchase ADD FOREIGN KEY user_idxfk_2 (user) REFERENCES user (id);
 
 CREATE INDEX figure_idx ON purchase(figure);
-ALTER TABLE purchase ADD FOREIGN KEY figure_idxfk_1 (figure) REFERENCES figure (id);
+ALTER TABLE purchase ADD FOREIGN KEY figure_idxfk (figure) REFERENCES figure (id);
 
 ALTER TABLE action ADD FOREIGN KEY purchase_idxfk (purchase) REFERENCES purchase (id);
 
 CREATE INDEX use_as_idx ON action(use_as);
 ALTER TABLE action ADD FOREIGN KEY user_idxfk_3 (user) REFERENCES user (id);
+
+ALTER TABLE package_figure ADD FOREIGN KEY package_idxfk (package) REFERENCES package (id);
+
+ALTER TABLE package_figure ADD FOREIGN KEY figure_idxfk_1 (figure) REFERENCES figure (id);

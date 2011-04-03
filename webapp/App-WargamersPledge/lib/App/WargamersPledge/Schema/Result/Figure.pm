@@ -29,11 +29,6 @@ __PACKAGE__->table("figure");
   default_value: 0
   is_nullable: 0
 
-=head2 package
-
-  data_type: 'integer'
-  is_nullable: 0
-
 =head2 scale
 
   data_type: 'varchar'
@@ -63,8 +58,6 @@ __PACKAGE__->table("figure");
 __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
-  "package",
-  { data_type => "integer", is_nullable => 0 },
   "scale",
   { data_type => "varchar", is_nullable => 1, size => 15 },
   "description",
@@ -129,8 +122,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:x6PKtnWEb8JGgWqS77ZOQw
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-04-03 23:06:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gwzgWBv5QoZK63gETisORQ
 
 __PACKAGE__->many_to_many( packages => 'package_figures', 'package');
 

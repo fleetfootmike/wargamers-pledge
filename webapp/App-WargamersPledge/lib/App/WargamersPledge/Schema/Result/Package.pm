@@ -40,6 +40,13 @@ __PACKAGE__->table("package");
   data_type: 'tinyint'
   is_nullable: 1
 
+=head2 manufacturer
+
+  data_type: 'varchar'
+  is_foreign_key: 1
+  is_nullable: 1
+  size: 255
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -49,10 +56,32 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 0, size => 255 },
   "moderated",
   { data_type => "tinyint", is_nullable => 1 },
+  "manufacturer",
+  { data_type => "varchar", is_foreign_key => 1, is_nullable => 1, size => 255 },
 );
 __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
+
+=head2 manufacturer
+
+Type: belongs_to
+
+Related object: L<App::WargamersPledge::Schema::Result::Manufacturer>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "manufacturer",
+  "App::WargamersPledge::Schema::Result::Manufacturer",
+  { id => "manufacturer" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
 
 =head2 package_figures
 
@@ -70,8 +99,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 11:50:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cBYOEzPNjnCTeF5r9L/hDQ
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-04-03 23:06:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CSA3nKcXxv7BRz6yWLpzXQ
 
 __PACKAGE__->many_to_many( figures => 'package_figures', 'figure');
 
