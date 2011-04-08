@@ -189,87 +189,63 @@ sub collection_add :Path('/collection/add') :Args(0) {
     my ( $self, $c ) = @_;
     $c->detach('unauthorized') unless $c->user;
     
-    my $data = $c->request->body_parameters;
-
-    my ($remove_field) = map { $_ =~ m/action_delete_(\d+)/ } (keys %$data);
+    my $data = $c->request->body_parameters || {} ;
+    $c->stash(form_data => $data);
     
-    if (
-        !$data->{action} ||
-        $data->{action} eq "Add another type of model" ||
-        $remove_field
-       ) {
-        $c->detach('collection_add_form');
-    }
+    ## Situations we could be in:
+    # 1. Showing form for the first time
+    # 2. Showing form with errors
+    # 3. Adding data to the database
     
-    warn "About to check the form for errors";
+    # 1. Showing form for the first time
+    $c->detach('collection_add_form') unless (defined $data->{action});
     
-    # Check the form data for errors
+    # 2 & 3: Check for errors
     my $errors = {};
-    # Required fields
-    for my $field (qw/manufacturer pack purchase_date/) {
-        my $submitted = $data->{$field};
-        if (!defined $submitted || $submitted =~ m/^\s*$/) {
-            $errors->{$field} = "This field is required";
+    
+    # TODO: Trim all fields, rogue white space is a pain.
+    
+    # purchase_date must be blank or YYYY-MM-DD
+    if ($data->{purchase_date} eq '') {
+        # OK
+    } elsif ($data->{purchase_date} =~ /^\d{4}-\d{2}-\d{2}$/) {
+        my @ymd = split '-', $data->{purchase_date};
+        my $dt = DateTime->new(year => $ymd[0], month => $ymd[1], day => $ymd[2]);
+        if ($dt->ymd ne $data->{purchase_date}) {
+            $errors->{purchase_date} = "The specified date does not exist";
+        } elsif ($dt > DateTime->now) {
+            $errors->{purchase_date} = "You must not specify a date in the future";
         }
     }
     
-    unless ($errors->{purchase_date}) {
-         if ($data->{purchase_date} !~ m/^\d{4}-\d{2}-\d{2}$/) {
-            $errors->{purchase_date} = "The date must be formatted as YYYY-MM-DD";
-         } else {
-            my @ymd = split '-', $data->{purchase_date};
-            my $dt = DateTime->new(year => $ymd[0], month => $ymd[1], day => $ymd[2]);
-            if ($dt->ymd ne $data->{purchase_date}) {
-                $errors->{purchase_date} = "The specified date does not exist";
-            } elsif ($dt > DateTime->now) {
-                $errors->{purchase_date} = "You must not specify a date in the future";
-            }
-         }
+    # manufacturer must be defined
+    # TOOD: Normalise case against the database
+    unless ($data->{manufacturer}) {
+        $errors->{manufacturer} = 'You must specify the manufacturer';
     }
     
-    warn "There were no errors";
-    
-    my @models = listme($data->{models});
-    for my $model_id (@models) {
-        my $name = $data->{'model_' . $model_id};
-        if (!defined $name || $name =~ m/^\s*$/) {
-            $errors->{'model_' . $model_id} = "This field is required";
-        }
-        my $quantity = $data->{'quantity_' . $model_id};
-        if (!defined $quantity || $quantity =~ m/^\s*$/) {
-            $errors->{'quantity_' . $model_id} = "This field is required";
-        } elsif ($quantity ne (int $quantity) || (int $quantity) < 1) {
-            $errors->{'quantity_' . $model_id} = "This must be a whole number equal to or higher than 1";
-        }
+    # model must be defined
+    # TOOD: Normalise case against the database
+    unless ($data->{model}) {
+        $errors->{model} = 'You must specify the name of the model';
     }
     
-    
-    
+    # Quantity must be a positive integer
+    my $quantity = $data->{quantity};
+    if ( !$quantity ) {
+        $errors->{quantity} = "You must specify how many of this figure you added to your collection.";
+    }
+    elsif ( $quantity ne ( int $quantity ) || ( int $quantity ) < 1 ) {
+        $errors->{quantity} =
+          "This must be a whole number equal to or higher than 1";
+    }
+
     if (keys %$errors) {
         $c->stash(errors => $errors);
         $c->detach('collection_add_form');
     }
-    
-    warn 'No keys for the errors';
-    
-    # All the data is good. Insert it into the database
-    
-    my $api = $c->model('API');
-    
-    my $package = $api->find_or_add_package($data->{manufacturer}, $data->{pack});
-    
-    for my $model_id (@models) {
-        my $name = $data->{'model_' . $model_id};
-        my $quantity = $data->{'quantity_' . $model_id};
-        
-        $api->add_to_package($package,
-                             description => $name,
-                             count => $quantity,
-                             manufacturer => $data->{manufacturer}
-                             );        
-    }
-    
-    $api->add_package_to_stash($c->user, $package, undef, $data->{purchase_date});
+
+    $c->detach('collection_insert');
     
 }
 
@@ -277,25 +253,33 @@ sub collection_add_form :Private {
     my ( $self, $c ) = @_;
     $c->detach('unauthorized') unless $c->user;
     
-    my $data = $c->request->body_parameters;
-    my ($remove_field) = map { $_ =~ m/action_delete_(\d+)/ } (keys %$data);
+    my $data = $c->stash->{form_data}; # This should always be populated before this sub is called
     
-    $data->{purchase_date} //= DateTime->now->ymd;
-    
-    my @models = listme($data->{models});
-    if ($remove_field) {
-        warn "Trying to remove field $remove_field\n";
-        @models = grep { $_ !~ /$remove_field/ } @models;
+    unless (keys %$data) { # If this is a new form, set a default
+        $data->{purchase_date} = DateTime->now->ymd;
     }
-    if ($data->{action} && $data->{action} eq "Add another type of model") {
-        push @models, ($models[-1] + 1);
-    }
-    $data->{models} = \@models;
+}
+
+sub collection_insert :Private {
+    my ( $self, $c ) = @_;
+    $c->detach('unauthorized') unless $c->user;
+    my $api = $c->model('API');
     
-    $c->stash(form_data => $data);
+    my $data = $c->stash->{form_data}; # This should always be populated before this sub is called
     
+    # Make sure the manufacturer is in the database
+    $api->add_manufacturer($data->{manufacturer});
     
+    my @ymd = split '-', $data->{purchase_date};
+    my $dt = DateTime->new(year => $ymd[0], month => $ymd[1], day => $ymd[2]);        
     
+    $api->add_to_stash(
+                        $c->user->id,
+                        description => $data->{model},
+                        number => $data->{quantity},
+                        manufacturer => $data->{manufacturer},
+                        when => $dt
+                       );
     
 }
 

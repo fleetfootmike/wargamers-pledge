@@ -18,40 +18,14 @@
         </header>
         <div id="content">
             
-    <form action="/collection/add" method="post">
-        [%- MACRO field INCLUDE 'includes/formfield.tt' %]
-        [% field(fieldtype="date" human_name="Purchase Date" name="purchase_date" note="(YYYY-MM-DD)") %]
-        
-        <p>We ask you to describe the packs of miniatures you buy so we can
-        collect data on what sets of figures can be bought. Once we have
-        enough data, we'll help you find the pack you have bought based on a
-        few letters, and then fill in the rest of the form for you.</p>
-        
-        <fieldset>
-            <legend>Pack</legend>
-            [% field(human_name="Manufacturer" name="manufacturer") %]
-            [% field(human_name="Pack name" name="pack") %]
-            
-            [% FOREACH model = form_data.models %]
-            <fieldset>
-                <legend>Model</legend>
-                <input type="hidden" name="models" value="[% model | html %]"/>
-                [% field(human_name="Model name" name="model_" _ model) %]
-                [% field(human_name="Quantity in pack" name="quantity_" _ model fieldtype="number") %]
-                [%- IF form_data.models.size > 1 %]
-                <input type="submit" class="delete" name="action_delete_[% model | html %]" value="Remove"/>
-                [%- END %]
-            </fieldset>
-            
-            [% END %]
-
-            <div class="field">
-                <input type="submit" name="action" value="Add another type of model" />
-            </div>
-            
-        </fieldset>
-        <input type="submit" name="action" value="Save and view" />
-        <input type="submit" name="action" value="Save and add another pack" />
+            <form action="/collection/add" method="post">
+                [%- MACRO field INCLUDE 'includes/formfield.tt' %]
+                [% field(fieldtype="date" human_name="Purchase Date" name="purchase_date" note="YYYY-MM-DD or leave blank if you're just adding an old figure to your records.") %]
+                [% field(human_name="Manufacturer" name="manufacturer") %]
+                [% field(human_name="Model name" name="model" note="This is the manufacturer's name, you will be able to give it a personalised name when we build the grouping feature. ") %]
+                [% field(human_name="Quantity" name="quantity" fieldtype="number") %]
+                <input type="submit" name="action" value="Save and view" />
+                <input type="submit" name="action" value="Save and add another type of model" />
     </form>
         </div>
     </section>
