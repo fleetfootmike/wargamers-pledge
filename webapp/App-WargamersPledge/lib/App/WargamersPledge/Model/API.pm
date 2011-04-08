@@ -21,7 +21,7 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
     }
     
     method add_manufacturer( Str $name ) {
-        $self->resultset('Manufacturer')->create(id => $name);
+        $self->resultset('Manufacturer')->find_or_create(id => $name);
         return $name;
     }
     
@@ -49,7 +49,7 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
         }
     }
     
-    method _purchase_figure( Str $user, Int $figure, Int $number, Str $notes, DateTime $when ) {
+    method _purchase_figure( Str $user, Int $figure, Int $number, Str :$notes, DateTime :$when ) {
         my $u = $self->resultset("User")->find($user);
         
         my $args = { purchased => $when, number => $number, figure => $figure };
@@ -58,15 +58,17 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
     }
         
     method add_to_stash( Str $user, Str :$description, Int :$number, Str :$manufacturer?, Str :$scale?, Str :$notes?, DateTime :$when? ) {
-        $when //= DateTime->now();
+        # $when //= DateTime->now(); # When must be optional. We need to allow blank for "Ages ago. I don't remember"
         my $u = $self->resultset("User")->find($user);
-        
         my $args = { description => $description  };
         $args->{manufacturer} = $manufacturer if defined $manufacturer;
         $args->{scale} = $scale if defined $scale;
         
-        my $f = $self->resultset('figure')->create($args);
-        $self->_purchase_figure( $user, $f->id, $number, $notes, $when );       
+        my $f = $self->resultset('Figure')->find_or_create($args);
+        my %args = ();;
+        $args{notes} = $notes if defined $notes;
+        $args{when} = $when if defined $when;
+        $self->_purchase_figure( $user, $f->id, $number, %args );       
         return $f->id;
     }   
 
