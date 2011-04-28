@@ -66,21 +66,6 @@ __PACKAGE__->set_primary_key("package", "figure");
 
 =head1 RELATIONS
 
-=head2 figure
-
-Type: belongs_to
-
-Related object: L<App::WargamersPledge::Schema::Result::Figure>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "figure",
-  "App::WargamersPledge::Schema::Result::Figure",
-  { id => "figure" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
 =head2 package
 
 Type: belongs_to
@@ -96,9 +81,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 figure
 
-# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-03-30 14:49:00
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gxWbuexbby2BYixU/wVTRw
+Type: belongs_to
+
+Related object: L<App::WargamersPledge::Schema::Result::Figure>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "figure",
+  "App::WargamersPledge::Schema::Result::Figure",
+  { id => "figure" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07007 @ 2011-04-28 16:45:19
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0qlbxuWQTnbBCuWPn2oSgA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
