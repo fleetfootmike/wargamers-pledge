@@ -73,9 +73,13 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
         #   We'll add more methods later.
         my $email = $profile->email;
         my $gravatar_url = gravatar_url(email => $email);
+        
         return {
             avatar_url => $gravatar_url,
-            username   => $user
+            username   => $user,
+            email      => $email,
+            created    => $profile->created,
+            last       => $profile->last,
         }
     }
 }
