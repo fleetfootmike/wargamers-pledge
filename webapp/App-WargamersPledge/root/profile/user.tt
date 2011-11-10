@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<h1>[% user | html %]</h1>
+<section>
+    <h2>Statistics</h2>
+    <table>
+        <thead>
+            <th scope="col">When</th>
+            <th scope="col">Purchased</th>
+            <th scope="col">Painted</th>
+            <th scope="col">Sold</th>
+            <th scope="col">Score</th>
+        </thead>
+        <tbody>
+            [% FOREACH statistic IN stats -%]
+            <td>[% statistic.label | html %]</td>
+            <td>[% statistic.bought | html %]</td>
+            <td>[% statistic.painted | html %]</td>
+            <td>[% statistic.sold | html %]</td>
+            <td>[% statistic.score | html %]</td>
+            [% END -%]
+        </tbody>
+    </table>
+</section>
