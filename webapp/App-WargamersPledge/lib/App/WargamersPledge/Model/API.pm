@@ -51,10 +51,9 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
     
     method _purchase_figure( Str $user, Int $figure, Int $number, Str :$notes, DateTime :$when ) {
         my $u = $self->resultset("User")->find($user);
-        
-        my $args = { purchased => $when, number => $number, figure => $figure };
-        $args->{notes} = $notes if defined $notes; 
-        $u->add_to_purchases( $args );       
+        my $args = { acquired => $when, num => $number, figure => $figure };
+        $args->{notes} = $notes if defined $notes;
+        $u->add_to_purchases( $args );
     }
         
     method add_to_stash( Str $user, Str :$description, Int :$number, Str :$manufacturer?, Str :$scale?, Str :$notes?, DateTime :$when? ) {
@@ -99,17 +98,30 @@ class App::WargamersPledge::Model::API extends Catalyst::Model::DBIC::Schema {
     }
 
     method get_stats (Str $user) {
-        my $rs = $self->resultset("User");
+        # TODO - accept argument for a given year, month or rolling 12 month period
         
-        my $bought = $rs->purchases()->get_column('num')->sum();
+        my $rs = $self->resultset("User")->find($user);
+        die("Failed to fine user $user when getting stats.") unless $rs;
+        
+        my $bought = $rs->purchases()->get_column('num')->sum() || 0;
         
         # the simpleminded version
-        my $painted = $rs->actions({ action => 'painted'})->get_column('num')->sum();
+        my $painted = $rs->actions({ action => 'painted'})->get_column('num')->sum() || 0;
         
-        return { bought => $bought, painted => $painted };
+        my $sold = 0;
+        
+        return {
+                bought => $bought,
+                painted => $painted,
+                sold => $sold,
+                score => ($painted + $sold) - $bought
+                };
     }
 
-    method get_profile (Str $user) { }
+    method get_profile (Str $user) {
+        my $u = $self->resultset("User")->find($user);
+        return $u;
+    }
 }
 
 
