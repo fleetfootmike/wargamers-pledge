@@ -2,6 +2,7 @@ package App::WargamersPledge::Controller::Root;
 use Moose;
 use namespace::autoclean;
 use DateTime;
+use v5.10;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -281,6 +282,11 @@ sub collection_insert :Private {
                         when => $dt
                        );
     
+    given ($data->{action}) {
+        when (/view/i) { $c->res->redirect('/collection') } # TODO: Get a page to show a purchase
+        when (/another/i) { $c->res->redirect('/collection/add') }
+    }
+    
 }
 
 sub unauthorized :Private {
@@ -308,7 +314,7 @@ Standard 404 error page
 
 =cut
 
-sub default : Path {
+sub not_found : Path {
     my ( $self, $c ) = @_;
     $c->response->body('Page not found');
     $c->response->status(404);
